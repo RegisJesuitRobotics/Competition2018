@@ -58,22 +58,22 @@ public class PlayStationController extends Joystick {
 	public boolean GetTouchScreen (){
 		return super.getRawButton(14);
 }
-	public double GetLeftAxisX (){
+	public double GetLeftStickAxisX (){
         return super.getRawAxis(0);
 	}
-	public double GetLeftAxisY (){
+	public double GetLeftSTickAxisY (){
         return super.getRawAxis(1);
 	}
-	public double GetRightAxisZ (){
+	public double GetRightStickAxisZ (){
         return super.getRawAxis(2);
 	}
-	public double GetRightRotateZ (){
+	public double GetRightStickRotateZ (){
         return super.getRawAxis(5);
 	}
-	public double GetLeftRotateX (){
+	public double GetLeftTrigger (){
         return super.getRawAxis(3);
 	}
-	public double GetRightRotateY (){
+	public double GetRightTrigger (){
         return super.getRawAxis(4);
 	}
 }
