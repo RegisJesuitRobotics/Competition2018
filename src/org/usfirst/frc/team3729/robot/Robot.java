@@ -9,7 +9,9 @@ package org.usfirst.frc.team3729.robot;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -33,34 +35,38 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * will be much more difficult under this system. Use IterativeRobot or
  * Command-Based instead if you're new.
  */
-public class Robot extends SampleRobot {
+public class Robot extends IterativeRobot {
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
 
-	private DifferentialDrive m_robotDrive
-			= new DifferentialDrive(new Spark(0), new Spark(1));
-	private Joystick m_stick = new Joystick(0);
-	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	//private DifferentialDrive m_robotDrive
+	//		= new DifferentialDrive(new Spark(0), new Spark(1));
+	//private Joystick m_stick = new Joystick(0);
+	//private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private soccordrivE Driver;
 	public Robot() {
-		m_robotDrive.setExpiration(0.1);
+		//m_robotDrive.setExpiration(0.1);
 		Driver = new soccordrivE(new PlayStationController(0));
 	}
 
+	
 	@Override
 	public void robotInit() {
-		m_chooser.addDefault("Default Auto", kDefaultAuto);
-		m_chooser.addObject("My Auto", kCustomAuto);
-		SmartDashboard.putData("Auto modes", m_chooser);
+		//m_chooser.addDefault("Default Auto", kDefaultAuto);
+		//m_chooser.addObject("My Auto", kCustomAuto);
+		//SmartDashboard.putData("Auto modes", m_chooser);
 		
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if(gameData.charAt(0) == 'L')
-		{
-			//Put left auto code here
-		} else {
-			//Put right auto code here
-		}
+		// Uncomment when ready.  Throws an exception otherwise
+//		String gameData;
+//		gameData = DriverStation.getInstance().getGameSpecificMessage();
+//		if(gameData.charAt(0) == 'L')
+//		{
+//			//Put left auto code here
+//		} else {
+//			//Put right auto code here
+//		}
+		
+		
 	}
 
 	/**
@@ -100,36 +106,36 @@ public class Robot extends SampleRobot {
 	 * }</pre></blockquote>
 	 */
 	@Override
-	public void autonomous() {
-		String autoSelected = m_chooser.getSelected();
+	public void autonomousPeriodic() {
+		//String autoSelected = m_chooser.getSelected();
 		// String autoSelected = SmartDashboard.getString("Auto Selector",
 		// defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
+		//System.out.println("Auto selected: " + autoSelected);
 
 		// MotorSafety improves safety when motors are updated in loops
 		// but is disabled here because motor updates are not looped in
 		// this autonomous mode.
-		m_robotDrive.setSafetyEnabled(false);
+		//m_robotDrive.setSafetyEnabled(false);
 
-		switch (autoSelected) {
-			case kCustomAuto:
-				// Spin at half speed for two seconds
-				m_robotDrive.arcadeDrive(0.0, 0.5);
-				Timer.delay(2.0);
-
-				// Stop robot
-				m_robotDrive.arcadeDrive(0.0, 0.0);
-				break;
-			case kDefaultAuto:
-			default:
-				// Drive forwards for two seconds
-				m_robotDrive.arcadeDrive(-0.5, 0.0);
-				Timer.delay(2.0);
-
-				// Stop robot
-				m_robotDrive.arcadeDrive(0.0, 0.0);
-				break;
-		}
+//		switch (autoSelected) {
+//			case kCustomAuto:
+//				// Spin at half speed for two seconds
+//				//m_robotDrive.arcadeDrive(0.0, 0.5);
+//				Timer.delay(2.0);
+//
+//				// Stop robot
+//				//m_robotDrive.arcadeDrive(0.0, 0.0);
+//				break;
+//			case kDefaultAuto:
+//			default:
+//				// Drive forwards for two seconds
+//				//m_robotDrive.arcadeDrive(-0.5, 0.0);
+//				Timer.delay(2.0);
+//
+//				// Stop robot
+//				//m_robotDrive.arcadeDrive(0.0, 0.0);
+//				break;
+//		}
 	}
 
 	/**
@@ -146,9 +152,10 @@ public class Robot extends SampleRobot {
 	 * }</pre></blockquote> 
 	 */ 
 	@Override
-	public void operatorControl() {
+	public void teleopPeriodic() {
 		//m_robotDrive.setSafetyEnabled(true);
 		while (isOperatorControl() && isEnabled()) {
+			//System.out.println("suppp");
 			// Drive arcade style
 			//m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
 			Driver.soccordrivE1(); 
@@ -157,10 +164,5 @@ public class Robot extends SampleRobot {
 		}
 	}
 
-	/**
-	 * Runs during test mode.
-	 */
-	@Override
-	public void test() {
-	}
+	
 }

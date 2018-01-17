@@ -1,20 +1,22 @@
 package org.usfirst.frc.team3729.robot;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 
 //import org.usfirst.frc.team3729.robot.commands.PlayStationController;
 
-import edu.wpi.first.wpilibj.Victor;
+//import edu.wpi.first.wpilibj.Victor;
 
 public class soccordrivE {
-	Talon J, R;
+	Victor J, R;
 	PlayStationController playStation;
 
 	public soccordrivE(PlayStationController playStation) {
-		J = new Talon(0);
-		R = new Talon(1);
+		
 		playStation = new PlayStationController(0);
 		this.playStation = playStation;
+		J = new Victor(0);
+		R = new Victor(1);
 	}
 
 	public void soccordrivE1() {
@@ -27,6 +29,7 @@ public class soccordrivE {
 		double Power;
 		double turn = 2 * LeftStick;
 		Power = RightTrigger - LeftTrigger;
+		//System.out.println("left"+LeftStick);
 		if (LeftStick > Deadzone) {
 
 			RightPower = Power - (turn * Power);
@@ -39,6 +42,8 @@ public class soccordrivE {
 			LeftPower = Power;
 			RightPower = Power;
 		}
+		//System.out.println("lp"+LeftPower);
+		//System.out.println("rp"+RightPower);
 		J.set(-LeftPower);
 		R.set(RightPower);
 	}
