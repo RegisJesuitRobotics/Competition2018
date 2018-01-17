@@ -41,9 +41,10 @@ public class Robot extends SampleRobot {
 			= new DifferentialDrive(new Spark(0), new Spark(1));
 	private Joystick m_stick = new Joystick(0);
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
-
+	private soccordrivE Driver;
 	public Robot() {
 		m_robotDrive.setExpiration(0.1);
+		Driver = new soccordrivE(new PlayStationController(0));
 	}
 
 	@Override
@@ -136,23 +137,23 @@ public class Robot extends SampleRobot {
 	 *
 	 * <p>If you wanted to run a similar teleoperated mode with an IterativeRobot
 	 * you would write:
-	 *
+	 * 
 	 * <blockquote><pre>{@code
 	 * // This function is called periodically during operator control
 	 * public void teleopPeriodic() {
 	 *     myRobot.arcadeDrive(stick);
 	 * }
-	 * }</pre></blockquote>
-	 */
+	 * }</pre></blockquote> 
+	 */ 
 	@Override
 	public void operatorControl() {
-		m_robotDrive.setSafetyEnabled(true);
+		//m_robotDrive.setSafetyEnabled(true);
 		while (isOperatorControl() && isEnabled()) {
 			// Drive arcade style
-			m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
-
+			//m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
+			Driver.soccordrivE1(); 
 			// The motors will be updated every 5ms
-			Timer.delay(0.005);
+			Timer.delay(0.005); 
 		}
 	}
 

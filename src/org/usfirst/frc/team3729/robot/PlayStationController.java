@@ -76,4 +76,7 @@ public class PlayStationController extends Joystick {
 	public double GetRightTrigger (){
         return super.getRawAxis(4);
 	}
-}
+
+
+
+	}

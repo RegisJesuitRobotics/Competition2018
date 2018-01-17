@@ -48,7 +48,7 @@ public class DriveClass {
 	}
 
 	// ALL AUTO COMMANDS BELOW THIS
-	public void AutoGoForeward(double speed, int time) {
+	/* public void AutoGoForeward(double speed, int time) {
 		AutoGoForeward(1, 10);
 		BackLeftDrive.set(speed);
 		BackRightDrive.set(speed);
@@ -111,5 +111,5 @@ public class DriveClass {
 
 		FrontLeftDrive.set(0.0);
 	}
-
+*/
 }
