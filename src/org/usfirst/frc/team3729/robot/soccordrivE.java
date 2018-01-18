@@ -47,6 +47,15 @@ public class soccordrivE {
 		J.set(-LeftPower);
 		R.set(RightPower);
 	}
+	
+	public void autonomous () {
+		for (int i = 0; i < 4; i ++) {
+			J.set(-1.0);
+			R.set(1.0);
+			
+		}
+	}
+	
 }
 
 
