@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 	//private Joystick m_stick = new Joystick(0);
 	//private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private soccordrivE Driver;
+	private boolean autoMove=false;
 	public Robot() {
 		//m_robotDrive.setExpiration(0.1);
 		Driver = new soccordrivE(new PlayStationController(0));
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void robotInit() {
+		
 		//m_chooser.addDefault("Default Auto", kDefaultAuto);
 		//m_chooser.addObject("My Auto", kCustomAuto);
 		//SmartDashboard.putData("Auto modes", m_chooser);
@@ -106,15 +108,26 @@ public class Robot extends IterativeRobot {
 	 * }</pre></blockquote>
 	 */
 	@Override
+	public void autonomousInit() {
+		autoMove=true;
+	} 
+	
+	@Override
 	public void autonomousPeriodic() {
+		while(autoMove==true) {
+		Driver.AutoGoForeward (0.6, 3);
+		autoMove=false;
+		} 
+		   // j motor needs less power
+		
 		//String autoSelected = m_chooser.getSelected();
 		// String autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
+		// defaultAuto); 
 		//System.out.println("Auto selected: " + autoSelected);
-
+ 
 		// MotorSafety improves safety when motors are updated in loops
 		// but is disabled here because motor updates are not looped in
-		// this autonomous mode.
+		// this autonomous mode. 
 		//m_robotDrive.setSafetyEnabled(false);
 
 //		switch (autoSelected) {
@@ -131,8 +144,8 @@ public class Robot extends IterativeRobot {
 //				// Drive forwards for two seconds
 //				//m_robotDrive.arcadeDrive(-0.5, 0.0);
 //				Timer.delay(2.0);
-//
-//				// Stop robot
+// 
+//				// Stop robot 
 //				//m_robotDrive.arcadeDrive(0.0, 0.0);
 //				break;
 //		}
