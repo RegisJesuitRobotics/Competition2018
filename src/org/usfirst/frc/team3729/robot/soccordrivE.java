@@ -12,7 +12,7 @@ public class soccordrivE {
 	PlayStationController playStation;
 
 	public soccordrivE(PlayStationController playStation) {
-		
+
 		playStation = new PlayStationController(0);
 		this.playStation = playStation;
 		J = new Victor(0);
@@ -29,7 +29,7 @@ public class soccordrivE {
 		double Power;
 		double turn = 2 * LeftStick;
 		Power = RightTrigger - LeftTrigger;
-		//System.out.println("left"+LeftStick);
+		// System.out.println("left"+LeftStick);
 		if (LeftStick > Deadzone) {
 
 			RightPower = Power - (turn * Power);
@@ -42,11 +42,53 @@ public class soccordrivE {
 			LeftPower = Power;
 			RightPower = Power;
 		}
-		//System.out.println("lp"+LeftPower);
-		//System.out.println("rp"+RightPower);
+		// System.out.println("lp"+LeftPower);
+		// System.out.println("rp"+RightPower);
 		J.set(-LeftPower);
 		R.set(RightPower);
 	}
+
+	public void AutoGoForeward(double speed, int time) {
+		// TODO Auto-generated method stub
+		J.set(-speed);
+		R.set(speed);
+		try {
+			wait(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		J.set(0);
+		R.set(0);
+	}
+
+	public void AutoGoRight(double speed, int time) {
+		AutoGoRight(1, 5);
+		J.set(-speed * 0.5);
+		R.set(speed);
+		try {
+			wait(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		J.set(0.0);
+		R.set(0);
+	}
+
+	public void AutoGoLeft(double speed, int time) {
+		AutoGoLeft(1, 5);
+
+		J.set(-speed);
+		R.set(speed * 0.5);
+		try {
+			wait(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		J.set(0.0);
+		R.set(0);
+	}
+
 }
-
-
