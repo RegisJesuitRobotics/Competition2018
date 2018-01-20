@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3729.robot;
 
+import com.ctre.CANTalon;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -11,6 +14,7 @@ public class soccordrivE {
 	Victor LeftMotor, RightMotor;
 	PlayStationController playStation;
 	Talon testMotor;
+	Encoder RightEncode, LeftEncode;
 
 	public soccordrivE(PlayStationController playStation) {
 
@@ -19,6 +23,8 @@ public class soccordrivE {
 		LeftMotor = new Victor(1);
 		RightMotor = new Victor(0);
 		testMotor = new Talon(2);
+		RightEncode = new Encoder(0, 1);
+		LeftEncode = new Encoder(2, 3);
 	}
 
 	public void soccordrivE1() {
@@ -51,22 +57,19 @@ public class soccordrivE {
 
 	public void TestBoi() {
 		if (playStation.GetButtonX()) {
-			testMotor.set(.666);
+			testMotor.set(.5);
 			System.out.println("omae wa gay if ur reading this omae wa idiot");
 		} else {
 			testMotor.set(0.0);
 		}
 	}
 
-	public void AutoGoForeward(double speed, int time) {
+	public void AutoGoForeward(double speed, int distance) {
+		LeftEncode.reset();
 
-		LeftMotor.set(-speed);
-		RightMotor.set(speed * 0.93);
-		try {
-			wait(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while (!(LeftEncode.get() >= distance)) {
+			LeftMotor.set(-speed);
+			RightMotor.set(speed * 0.93);
 		}
 		LeftMotor.set(1);
 		RightMotor.set(-1);

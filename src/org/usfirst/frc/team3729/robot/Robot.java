@@ -191,6 +191,7 @@ public class Robot extends IterativeRobot {
 		// m_robotDrive.setSafetyEnabled(true);
 		while (isOperatorControl() && isEnabled()) {
 			Driver.soccordrivE1();
+			Driver.TestBoi();
 		}
 	}
 
