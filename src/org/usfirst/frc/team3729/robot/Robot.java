@@ -7,7 +7,6 @@
 
 package org.usfirst.frc.team3729.robot;
 
-import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,51 +23,52 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * call your Autonomous and OperatorControl methods at the right time as
  * controlled by the switches on the driver station or the field controls.
  *
- * <p>The VM is configured to automatically run this class, and to call the
+ * <p>
+ * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the SampleRobot
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the build.properties file in the
  * project.
  *
- * <p>WARNING: While it may look like a good choice to use for your code if
- * you're inexperienced, don't. Unless you know what you are doing, complex code
- * will be much more difficult under this system. Use IterativeRobot or
- * Command-Based instead if you're new.
+ * <p>
+ * WARNING: While it may look like a good choice to use for your code if you're
+ * inexperienced, don't. Unless you know what you are doing, complex code will
+ * be much more difficult under this system. Use IterativeRobot or Command-Based
+ * instead if you're new.
  */
 public class Robot extends IterativeRobot {
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
 
-	//private DifferentialDrive m_robotDrive
-	//		= new DifferentialDrive(new Spark(0), new Spark(1));
-	//private Joystick m_stick = new Joystick(0);
-	//private SendableChooser<String> m_chooser = new SendableChooser<>();
+	// private DifferentialDrive m_robotDrive
+	// = new DifferentialDrive(new Spark(0), new Spark(1));
+	// private Joystick m_stick = new Joystick(0);
+	// private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private soccordrivE Driver;
-	private boolean autoMove=false;
+	private boolean autoMove = false;
+
 	public Robot() {
-		//m_robotDrive.setExpiration(0.1);
+		// m_robotDrive.setExpiration(0.1);
 		Driver = new soccordrivE(new PlayStationController(0));
 	}
 
-	
 	@Override
 	public void robotInit() {
-		
-		//m_chooser.addDefault("Default Auto", kDefaultAuto);
-		//m_chooser.addObject("My Auto", kCustomAuto);
-		//SmartDashboard.putData("Auto modes", m_chooser);
-		
-		// Uncomment when ready.  Throws an exception otherwise
-//		String gameData;
-//		gameData = DriverStation.getInstance().getGameSpecificMessage();
-//		if(gameData.charAt(0) == 'L')
-//		{
-//			//Put left auto code here
-//		} else {
-//			//Put right auto code here
-//		}
-		
-		
+
+		// m_chooser.addDefault("Default Auto", kDefaultAuto);
+		// m_chooser.addObject("My Auto", kCustomAuto);
+		// SmartDashboard.putData("Auto modes", m_chooser);
+
+		// Uncomment when ready. Throws an exception otherwise
+		// String gameData;
+		// gameData = DriverStation.getInstance().getGameSpecificMessage();
+		// if(gameData.charAt(0) == 'L')
+		// {
+		// //Put left auto code here
+		// } else {
+		// //Put right auto code here
+		// }
+
 	}
 
 	/**
@@ -78,14 +78,19 @@ public class Robot extends IterativeRobot {
 	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
 	 * getString line to get the auto name from the text box below the Gyro
 	 *
-	 * <p>You can add additional auto modes by adding additional comparisons to
-	 * the if-else structure below with additional strings. If using the
+	 * <p>
+	 * You can add additional auto modes by adding additional comparisons to the
+	 * if-else structure below with additional strings. If using the
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 *
-	 * <p>If you wanted to run a similar autonomous mode with an IterativeRobot
-	 * you would write:
+	 * <p>
+	 * If you wanted to run a similar autonomous mode with an IterativeRobot you
+	 * would write:
 	 *
-	 * <blockquote><pre>{@code
+	 * <blockquote>
+	 * 
+	 * <pre>
+	 * {@code
 	 * Timer timer = new Timer();
 	 *
 	 * // This function is run once each time the robot enters autonomous mode
@@ -105,77 +110,88 @@ public class Robot extends IterativeRobot {
 	 *         myRobot.drive(0.0, 0.0); // stop robot
 	 *     }
 	 * }
-	 * }</pre></blockquote>
+	 * }
+	 * </pre>
+	 * 
+	 * </blockquote>
 	 */
 	@Override
 	public void autonomousInit() {
-		autoMove=true;
-	} 
-	
+		autoMove = true;
+	}
+
 	@Override
 	public void autonomousPeriodic() {
-		while(autoMove==true) {
-		Driver.AutoGoForeward (0.6, 3);
-		autoMove=false;
-		} 
-		   // j motor needs less power
-		
-		//String autoSelected = m_chooser.getSelected();
+		while (autoMove == true) {
+			Driver.AutoGoForeward(0.6, 3);
+			Driver.AutoGoLeft(0.6, 5);
+			autoMove = false;
+		}
+
+		// j motor needs less power ACCOMPLISHED
+
+		// String autoSelected = m_chooser.getSelected();
 		// String autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto); 
-		//System.out.println("Auto selected: " + autoSelected);
- 
+		// defaultAuto);
+		// System.out.println("Auto selected: " + autoSelected);
+
 		// MotorSafety improves safety when motors are updated in loops
 		// but is disabled here because motor updates are not looped in
-		// this autonomous mode. 
-		//m_robotDrive.setSafetyEnabled(false);
+		// this autonomous mode.
+		// m_robotDrive.setSafetyEnabled(false);
 
-//		switch (autoSelected) {
-//			case kCustomAuto:
-//				// Spin at half speed for two seconds
-//				//m_robotDrive.arcadeDrive(0.0, 0.5);
-//				Timer.delay(2.0);
-//
-//				// Stop robot
-//				//m_robotDrive.arcadeDrive(0.0, 0.0);
-//				break;
-//			case kDefaultAuto:
-//			default:
-//				// Drive forwards for two seconds
-//				//m_robotDrive.arcadeDrive(-0.5, 0.0);
-//				Timer.delay(2.0);
-// 
-//				// Stop robot 
-//				//m_robotDrive.arcadeDrive(0.0, 0.0);
-//				break;
-//		}
+		// switch (autoSelected) {
+		// case kCustomAuto:
+		// // Spin at half speed for two seconds
+		// //m_robotDrive.arcadeDrive(0.0, 0.5);
+		// Timer.delay(2.0);
+		//
+		// // Stop robot
+		// //m_robotDrive.arcadeDrive(0.0, 0.0);
+		// break;
+		// case kDefaultAuto:
+		// default:
+		// // Drive forwards for two seconds
+		// //m_robotDrive.arcadeDrive(-0.5, 0.0);
+		// Timer.delay(2.0);
+		//
+		// // Stop robot
+		// //m_robotDrive.arcadeDrive(0.0, 0.0);
+		// break;
+		// }
+	}
+
+	@Override
+	public void teleopInit() {
+
 	}
 
 	/**
 	 * Runs the motors with arcade steering.
 	 *
-	 * <p>If you wanted to run a similar teleoperated mode with an IterativeRobot
+	 * <p>
+	 * If you wanted to run a similar teleoperated mode with an IterativeRobot
 	 * you would write:
 	 * 
-	 * <blockquote><pre>{@code
+	 * <blockquote>
+	 * 
+	 * <pre>
+	 * {@code
 	 * // This function is called periodically during operator control
 	 * public void teleopPeriodic() {
 	 *     myRobot.arcadeDrive(stick);
 	 * }
-	 * }</pre></blockquote> 
-	 */ 
+	 * }
+	 * </pre>
+	 * 
+	 * </blockquote>
+	 */
 	@Override
 	public void teleopPeriodic() {
-		//m_robotDrive.setSafetyEnabled(true);
+		// m_robotDrive.setSafetyEnabled(true);
 		while (isOperatorControl() && isEnabled()) {
-			//System.out.println("suppp");
-			// Drive arcade style
-			//m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
-			Driver.soccordrivE1(); 
-			// The motors will be updated every 5ms
-			Timer.delay(0.005); 
+			Driver.soccordrivE1();
 		}
 	}
 
-	
 }

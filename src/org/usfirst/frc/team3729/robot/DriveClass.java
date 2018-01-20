@@ -49,10 +49,10 @@ public class DriveClass {
 
 	// ALL AUTO COMMANDS BELOW THIS
 	public void AutoGoForeward(double speed, int time) {
-		BackLeftDrive.set(speed);
+		BackLeftDrive.set(speed * 0.9);
 		BackRightDrive.set(speed);
 		FrontRightDrive.set(speed);
-		FrontLeftDrive.set(speed);
+		FrontLeftDrive.set(speed * 0.9);
 		try {
 			wait(time);
 		} catch (InterruptedException e) {

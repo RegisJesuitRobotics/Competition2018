@@ -8,15 +8,17 @@ import edu.wpi.first.wpilibj.Victor;
 //import edu.wpi.first.wpilibj.Victor;
 
 public class soccordrivE {
-	Victor J, R;
+	Victor LeftMotor, RightMotor;
 	PlayStationController playStation;
+	Talon testMotor;
 
 	public soccordrivE(PlayStationController playStation) {
 
 		playStation = new PlayStationController(0);
 		this.playStation = playStation;
-		J = new Victor(0);
-		R = new Victor(1);
+		LeftMotor = new Victor(1);
+		RightMotor = new Victor(0);
+		testMotor = new Talon(2);
 	}
 
 	public void soccordrivE1() {
@@ -42,53 +44,59 @@ public class soccordrivE {
 			LeftPower = Power;
 			RightPower = Power;
 		}
-		// System.out.println("lp"+LeftPower);
-		// System.out.println("rp"+RightPower);
-		J.set(-LeftPower);
-		R.set(RightPower);
+
+		LeftMotor.set(-LeftPower);
+		RightMotor.set(RightPower * 0.93);
+	}
+
+	public void TestBoi() {
+		if (playStation.GetButtonX()) {
+			testMotor.set(.666);
+			System.out.println("omae wa gay if ur reading this omae wa idiot");
+		} else {
+			testMotor.set(0.0);
+		}
 	}
 
 	public void AutoGoForeward(double speed, int time) {
-		// TODO Auto-generated method stub
-		J.set(-speed);
-		R.set(speed);
+
+		LeftMotor.set(-speed);
+		RightMotor.set(speed * 0.93);
 		try {
 			wait(time);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		J.set(0);
-		R.set(0);
+		LeftMotor.set(1);
+		RightMotor.set(-1);
 	}
 
 	public void AutoGoRight(double speed, int time) {
-		AutoGoRight(1, 5);
-		J.set(-speed * 0.5);
-		R.set(speed);
+		LeftMotor.set(-speed * 0.5);
+		RightMotor.set(speed);
 		try {
 			wait(time);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		J.set(0.0);
-		R.set(0);
+		LeftMotor.set(0.0);
+		RightMotor.set(0);
 	}
 
 	public void AutoGoLeft(double speed, int time) {
-		AutoGoLeft(1, 5);
 
-		J.set(-speed);
-		R.set(speed * 0.5);
+		LeftMotor.set(-speed);
+		RightMotor.set(speed * 0.5);
 		try {
 			wait(time);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		J.set(0.0);
-		R.set(0);
+		LeftMotor.set(0.0);
+		RightMotor.set(0);
 	}
 
 }
