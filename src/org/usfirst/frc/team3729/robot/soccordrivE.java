@@ -1,9 +1,6 @@
 package org.usfirst.frc.team3729.robot;
 
-import com.ctre.CANTalon;
-
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
 //import org.usfirst.frc.team3729.robot.commands.PlayStationController;
@@ -11,9 +8,9 @@ import edu.wpi.first.wpilibj.Victor;
 //import edu.wpi.first.wpilibj.Victor;
 
 public class soccordrivE {
-	Victor LeftMotor, RightMotor;
+	Victor RightMotor, LeftMotor;
 	PlayStationController playStation;
-	Talon testMotor;
+	Victor testMotor;
 	Encoder RightEncode, LeftEncode;
 
 	public soccordrivE(PlayStationController playStation) {
@@ -22,7 +19,7 @@ public class soccordrivE {
 		this.playStation = playStation;
 		LeftMotor = new Victor(1);
 		RightMotor = new Victor(0);
-		testMotor = new Talon(2);
+		testMotor = new Victor(2);
 		RightEncode = new Encoder(0, 1);
 		LeftEncode = new Encoder(2, 3);
 	}
@@ -57,10 +54,10 @@ public class soccordrivE {
 
 	public void TestBoi() {
 		if (playStation.GetButtonX()) {
-			testMotor.set(.5);
+			testMotor.set(-0.5);
 			System.out.println("omae wa gay if ur reading this omae wa idiot");
 		} else {
-			testMotor.set(0.0);
+			testMotor.set(0);
 		}
 	}
 
