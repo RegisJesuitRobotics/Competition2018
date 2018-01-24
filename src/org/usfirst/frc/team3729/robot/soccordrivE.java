@@ -12,16 +12,21 @@ public class soccordrivE {
 	PlayStationController playStation;
 	Victor testMotor;
 	Encoder RightEncode, LeftEncode;
+	boolean encodersHaveStated;
 
 	public soccordrivE(PlayStationController playStation) {
 
 		playStation = new PlayStationController(0);
 		this.playStation = playStation;
-		LeftMotor = new Victor(1);
-		RightMotor = new Victor(0);
+		LeftMotor = new Victor(0);
+		RightMotor = new Victor(1);
 		testMotor = new Victor(2);
-		RightEncode = new Encoder(0, 1);
-		LeftEncode = new Encoder(2, 3);
+		RightEncode = new Encoder(6, 7);
+		LeftEncode = new Encoder(8, 9);
+		// ENCODERS DIO
+		// VICTORS GO IN PWM
+
+		encodersHaveStated = false;
 	}
 
 	public void soccordrivE1() {
@@ -32,8 +37,9 @@ public class soccordrivE {
 		double RightPower;
 		double LeftPower;
 		double Power;
+		double Limiter = 0.8;
 		double turn = 2 * LeftStick;
-		Power = RightTrigger - LeftTrigger;
+		Power = LeftTrigger - RightTrigger;
 		// System.out.println("left"+LeftStick);
 		if (LeftStick > Deadzone) {
 
@@ -48,8 +54,8 @@ public class soccordrivE {
 			RightPower = Power;
 		}
 
-		LeftMotor.set(-LeftPower);
-		RightMotor.set(RightPower * 0.93);
+		LeftMotor.set(-LeftPower * Limiter);
+		RightMotor.set(RightPower * 0.93 * Limiter);
 	}
 
 	public void TestBoi() {
@@ -60,6 +66,19 @@ public class soccordrivE {
 			testMotor.set(0);
 		}
 	}
+
+	public void EncoderStart() {
+		if (encodersHaveStated == false) {
+			LeftEncode.reset();
+			RightEncode.reset();
+			System.out.println(LeftEncode.get());
+			System.out.println(RightEncode.get());
+			encodersHaveStated = true;
+		}
+	}
+
+
+
 
 	public void AutoGoForeward(double speed, int distance) {
 		LeftEncode.reset();

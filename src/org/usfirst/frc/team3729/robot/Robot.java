@@ -192,6 +192,10 @@ public class Robot extends IterativeRobot {
 		while (isOperatorControl() && isEnabled()) {
 			Driver.soccordrivE1();
 			Driver.TestBoi();
+			
+			Driver.EncoderStart();
+
+			
 		}
 	}
 
