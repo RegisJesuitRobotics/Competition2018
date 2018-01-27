@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3729.robot;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 
 public class DriveClass {
 	PlayStationController PlayStation;
@@ -53,6 +54,7 @@ public class DriveClass {
 		BackRightDrive.set(speed);
 		FrontRightDrive.set(speed);
 		FrontLeftDrive.set(speed * 0.9);
+		Timer.delay(time);
 		try {
 			wait(time);
 		} catch (InterruptedException e) {

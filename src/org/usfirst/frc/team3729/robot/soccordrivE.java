@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3729.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 
 public class soccordrivE {
@@ -73,15 +74,35 @@ public class soccordrivE {
 		}
 	}
 
-	public void AutoGoForeward(double speed, int distance) {
-		LeftEncode.reset();
+	public void AutoGoForeward(double speed, int time) {
 
-		while (!(LeftEncode.get() >= distance)) {
-			LeftMotor.set(-speed);
-			RightMotor.set(speed * 0.93);
-		}
-		LeftMotor.set(1);
-		RightMotor.set(-1);
+		LeftMotor.set(-speed);
+		RightMotor.set(speed);
+	try {
+		wait(time);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+		LeftMotor.stopMotor();
+		RightMotor.stopMotor();
+		
+	}
+	public void AutoGoOverLine() {
+
+		LeftMotor.set(-0.5);
+		RightMotor.set(0.5);
+	try {
+		wait(1);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+		LeftMotor.stopMotor();
+		RightMotor.stopMotor();
+		
 	}
 
 	public void AutoGoRight(double speed, int time) {
