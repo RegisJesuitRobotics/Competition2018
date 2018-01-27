@@ -19,14 +19,18 @@ public class Robot extends IterativeRobot {
 
 	private soccordrivE Driver;
 	private boolean autoMove = false;
-	char SwitchSide = '_';
-	SendableChooser chooser;
-	//AUTOMODES
+	FieldElementScoringSide SwitchSide;
+	SendableChooser PositionChooser, ObjectiveChooser;
+	// AUTOMODES
+
 	final String defaultAuto = "Default";
-	final String autonomousPos1 = "APos1";
-	final String autonomousPos2 = "APos2";
-	final String autonomousPos3 = "APos3";
-	String autoSelected;
+	final String AutoPosLeft = "APosLeft";
+	final String AutoPosMid = "APosMiddle";
+	final String AutoPosRight = "APosRight";
+	String autoSelectedPosition, autoSelectedObjective;
+	final String AutoGoalLine = "AGoalLine";
+	final String AutoGoalSwitch = "AGoalSwitch";
+	final String AutoGoalScale = "AGoalScale";
 
 	public Robot() {
 		Driver = new soccordrivE(new PlayStationController(0));
@@ -36,39 +40,86 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		String gameData;
 
-		// FMS DATA PULL
+		// FMS DATA PULL FOR SWITCH (INDEX 0 IS SWITCH)
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if (gameData.charAt(0) == 'L') {
-			// SETS FOR RIGHT SWITCHT
-			char SwitchSide = 'L';
-		} else if (gameData.charAt(0) == 'R') {
-			// SETS FOR LEFT SWITCH
-			char SwitchSide = 'R';
+		if (gameData.charAt(0) == 'L' || gameData.charAt(0) == 'l') {
+			SwitchSide = FieldElementScoringSide.Left;
+		} else {
+			SwitchSide = FieldElementScoringSide.Right;
 		}
-		
-		//INPUT START POSITION
-		chooser = new SendableChooser();
-		chooser.addDefault("Autonomous Position 1", autonomousPos1);
-		chooser.addObject("Autonomous Position 2", autonomousPos2);
-		chooser.addObject("Autonomous Position 3", autonomousPos3);
-		SmartDashboard.putData("Auto choices", chooser);
+
+		// INPUT START POSITION
+		PositionChooser = new SendableChooser();
+		PositionChooser.addDefault("Autonomous Position Left", AutoPosLeft);
+		PositionChooser.addObject("Autonomous Position Middle", AutoPosMid);
+		PositionChooser.addObject("Autonomous Position Right", AutoPosRight);
+		SmartDashboard.putData("Auto Start Position", PositionChooser);
+
+		// INPUT OBJECTIVE
+		ObjectiveChooser = new SendableChooser();
+		ObjectiveChooser.addDefault("Autonomous Goal Line", AutoGoalLine);
+		ObjectiveChooser.addObject("Autonomous Goal Scale", AutoGoalScale);
+		ObjectiveChooser.addObject("Autonomous Goal Switch", AutoGoalSwitch);
+		SmartDashboard.putData("Auto Objective", ObjectiveChooser);
 	}
 
 	@Override
 	public void autonomousInit() {
 		autoMove = true;
+		autoSelectedPosition = (String) PositionChooser.getSelected();
+		System.out.println("Auto selected: " + autoSelectedPosition);
+		autoSelectedObjective = (String) ObjectiveChooser.getSelected();
+		System.out.println("Auto selected: " + autoSelectedObjective);
+
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		// FOR AUTO METHODS USE SPEED THEN TIME
-		while (autoMove == true) {
+		// GO OVER LINE
+		if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalLine)) {
 			Driver.AutoGoOverLine();
-
-			Driver.AutoGoForeward(0.5, 1);
+		} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalLine)) {
+			Driver.AutoGoOverLine();
+		} else if (autoSelectedPosition.equals(AutoPosMid) && autoSelectedObjective.equals(AutoGoalLine)) {
+			Driver.AutoGoOverLine();
+		}
+		// SCORE SWITCH
+		// left start
+		else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
+				&& SwitchSide == FieldElementScoringSide.Left) {
+			Driver.AutoGoOverLine();
+		} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
+				&& SwitchSide == FieldElementScoringSide.Right) {
+			Driver.AutoGoOverLine();
+		}
+		// right start
+		else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
+				&& SwitchSide == FieldElementScoringSide.Left) {
+			Driver.AutoGoOverLine();
+		} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
+				&& SwitchSide == FieldElementScoringSide.Right) {
+			Driver.AutoGoOverLine();
 		}
 
-		// j motor needs less power ACCOMPLISHED
+		// SCORE SCALE
+		// left start
+		else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
+				&& SwitchSide == FieldElementScoringSide.Left) {
+			Driver.AutoGoOverLine();
+		} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
+				&& SwitchSide == FieldElementScoringSide.Right) {
+			Driver.AutoGoOverLine();
+		}
+		// right start
+		else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
+				&& SwitchSide == FieldElementScoringSide.Left) {
+			Driver.AutoGoOverLine();
+		} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
+				&& SwitchSide == FieldElementScoringSide.Right) {
+			Driver.AutoGoOverLine();
+		}
+
 	}
 
 	@Override
