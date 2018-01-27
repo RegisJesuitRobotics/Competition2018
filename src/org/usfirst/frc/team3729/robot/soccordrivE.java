@@ -78,31 +78,32 @@ public class soccordrivE {
 
 		LeftMotor.set(-speed);
 		RightMotor.set(speed);
-	try {
-		wait(time);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		try {
+			wait(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		LeftMotor.stopMotor();
 		RightMotor.stopMotor();
-		
+
 	}
+
 	public void AutoGoOverLine() {
 
 		LeftMotor.set(-0.5);
 		RightMotor.set(0.5);
-	try {
-		wait(1);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		try {
+			wait(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		LeftMotor.stopMotor();
 		RightMotor.stopMotor();
-		
+
 	}
 
 	public void AutoGoRight(double speed, int time) {

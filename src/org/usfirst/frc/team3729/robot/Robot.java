@@ -48,10 +48,9 @@ public class Robot extends IterativeRobot {
 		
 		//INPUT START POSITION
 		chooser = new SendableChooser();
-		chooser.addDefault("Default Auto", defaultAuto);
-		chooser.addObject("STR8 M8 8/8", autonomousPos1);
-		chooser.addObject("Starting on the Right", autonomousPos2);
-		chooser.addObject("Starting on the Left", autonomousPos3);
+		chooser.addDefault("Autonomous Position 1", autonomousPos1);
+		chooser.addObject("Autonomous Position 2", autonomousPos2);
+		chooser.addObject("Autonomous Position 3", autonomousPos3);
 		SmartDashboard.putData("Auto choices", chooser);
 	}
 
