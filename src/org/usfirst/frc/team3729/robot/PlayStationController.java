@@ -6,7 +6,6 @@ public class PlayStationController extends Joystick {
 
 	public PlayStationController(int port) {
 		super(port);
-
 	}
 
 	public boolean GetButtonX() {
@@ -94,5 +93,4 @@ public class PlayStationController extends Joystick {
 	public double GetRightTrigger() {
 		return super.getRawAxis(4);
 	}
-
 }

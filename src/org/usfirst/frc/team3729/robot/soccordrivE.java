@@ -3,10 +3,6 @@ package org.usfirst.frc.team3729.robot;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
 
-//import org.usfirst.frc.team3729.robot.commands.PlayStationController;
-
-//import edu.wpi.first.wpilibj.Victor;
-
 public class soccordrivE {
 	Victor RightMotor, LeftMotor;
 	PlayStationController playStation;
@@ -76,9 +72,6 @@ public class soccordrivE {
 			encodersHaveStated = true;
 		}
 	}
-
-
-
 
 	public void AutoGoForeward(double speed, int distance) {
 		LeftEncode.reset();
