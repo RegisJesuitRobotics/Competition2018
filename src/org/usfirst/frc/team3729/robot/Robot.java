@@ -1,4 +1,5 @@
 /*----------------------------------------------------------------------------*/
+
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -7,6 +8,7 @@
 
 package org.usfirst.frc.team3729.robot;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -52,9 +54,11 @@ public class Robot extends IterativeRobot {
 		Driver = new soccordrivE(new PlayStationController(0));
 	}
 
+	NetworkTable table;
+
 	@Override
 	public void robotInit() {
-
+		table = NetworkTable.getTable("datatable");
 		// m_chooser.addDefault("Default Auto", kDefaultAuto);
 		// m_chooser.addObject("My Auto", kCustomAuto);
 		// SmartDashboard.putData("Auto modes", m_chooser);
@@ -73,15 +77,15 @@ public class Robot extends IterativeRobot {
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString line to get the auto name from the text box below the Gyro
+	 * between different autonomous modes using the dashboard. The sendable chooser
+	 * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+	 * remove all of the chooser code and uncomment the getString line to get the
+	 * auto name from the text box below the Gyro
 	 *
 	 * <p>
 	 * You can add additional auto modes by adding additional comparisons to the
-	 * if-else structure below with additional strings. If using the
-	 * SendableChooser make sure to add them to the chooser code above as well.
+	 * if-else structure below with additional strings. If using the SendableChooser
+	 * make sure to add them to the chooser code above as well.
 	 *
 	 * <p>
 	 * If you wanted to run a similar autonomous mode with an IterativeRobot you
@@ -170,8 +174,8 @@ public class Robot extends IterativeRobot {
 	 * Runs the motors with arcade steering.
 	 *
 	 * <p>
-	 * If you wanted to run a similar teleoperated mode with an IterativeRobot
-	 * you would write:
+	 * If you wanted to run a similar teleoperated mode with an IterativeRobot you
+	 * would write:
 	 * 
 	 * <blockquote>
 	 * 
@@ -192,11 +196,14 @@ public class Robot extends IterativeRobot {
 		while (isOperatorControl() && isEnabled()) {
 			Driver.soccordrivE1();
 			Driver.TestBoi();
-			
-			Driver.EncoderStart();
 
-			
+			Driver.EncoderStart();
+			table.putNumber("Left Encoder", Driver.LeftEncode.get());
+			table.putNumber("Right Encoder", Driver.RightEncode.get());
 		}
 	}
 
+	//private void execute() {
+	// SmartDashboard.putNumber("Left Encoder", .getLeftEncode());
+	//}
 }
