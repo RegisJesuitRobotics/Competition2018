@@ -94,13 +94,15 @@ public class soccordrivE {
 
 		LeftMotor.set(-0.5);
 		RightMotor.set(0.5);
-		try {
-			wait(1);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		// try {
+		// wait(1);
+		// } catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		System.out.println("PreDELAY");
+		Timer.delay(1);
+		System.out.println("cuccckerino");
 		LeftMotor.stopMotor();
 		RightMotor.stopMotor();
 
