@@ -102,11 +102,21 @@ public class soccordrivE {
 			// START LEFT, ELEMENT LEFT
 			AutoGoForeward(0.5, 2);
 			AutoPointTurnRight(0.38, 1);
+		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
+			AutoGoOverLine();
+			AutoGoOverLine();
+			AutoPointTurnLeft(0.38, 1);
 		}
+	}
 
-		else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
-			// START RIGHT ELEMENT RIGHT
-			AutoGoForeward(0.5, 2);
+	public void AutoScoreScale(FieldElementScoringSide ScaleSide, FieldStartingPosition StartingPosition) {
+		if (StartingPosition == FieldStartingPosition.Left && ScaleSide == FieldElementScoringSide.Left) {
+			AutoGoOverLine();
+			AutoGoOverLine();
+			AutoPointTurnRight(0.38, 1);
+		} else if (StartingPosition == FieldStartingPosition.Right && ScaleSide == FieldElementScoringSide.Right) {
+			AutoGoOverLine();
+			AutoGoOverLine();
 			AutoPointTurnLeft(0.38, 1);
 		}
 	}

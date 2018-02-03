@@ -104,9 +104,8 @@ public class Robot extends IterativeRobot {
 				// START MIDDLE, GOAL IS LINE
 				Driver.AutoGoOverLine();
 			}
-
 			// SCORE SWITCH
-
+			// left start
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START LEFT, GOAL IS SWITCH, SWITCH IS ON LEFT
@@ -119,12 +118,13 @@ public class Robot extends IterativeRobot {
 				Driver.AutoGoOverLine();
 				System.out.println("Auto Position Right Switch" + AutoPosRight);
 			}
-
+			// right start
+			// THIS ONE
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START RIGHT, GOAL IS SWITCH, SWITCH IS ON LEFT
 				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
-
+				// UP U FUKER
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				// START RIGHT, GOAL IS SWITCH, SWITCH IS ON RIGHT
@@ -135,9 +135,7 @@ public class Robot extends IterativeRobot {
 
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				// START LEFT, GOAL IS SCALE, SCALE IS ON THE LEFT
-				Driver.AutoGoOverLine();
-
+				Driver.AutoScoreScale(ScaleSide, FieldStartingPosition.Left);
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				// START LEFT, GOAL IS SCALE, SCALE IS ON THE RIGHT
@@ -146,9 +144,7 @@ public class Robot extends IterativeRobot {
 
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				// START RIGHT, GOAL IS SCALE, SCALE IS ON THE LEFT
-				Driver.AutoGoOverLine();
-
+				Driver.AutoScoreScale(ScaleSide, FieldStartingPosition.Right);
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				// START RIGHT, GOAL IS SCALE, SCALE IS ON THE RIGHT
