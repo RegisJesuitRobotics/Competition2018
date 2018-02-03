@@ -78,12 +78,7 @@ public class soccordrivE {
 
 		LeftMotor.set(-speed);
 		RightMotor.set(speed);
-		try {
-			wait(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Timer.delay(time);
 
 		LeftMotor.stopMotor();
 		RightMotor.stopMotor();
@@ -111,12 +106,7 @@ public class soccordrivE {
 	public void AutoGoRight(double speed, int time) {
 		LeftMotor.set(-speed * 0.5);
 		RightMotor.set(speed);
-		try {
-			wait(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Timer.delay(time);
 		LeftMotor.set(0.0);
 		RightMotor.set(0);
 	}
@@ -125,12 +115,25 @@ public class soccordrivE {
 
 		LeftMotor.set(-speed);
 		RightMotor.set(speed * 0.5);
-		try {
-			wait(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Timer.delay(time);
+		LeftMotor.set(0.0);
+		RightMotor.set(0);
+	}
+
+	public void AutoPointTurnLeft(double speed, int time) {
+
+		LeftMotor.set(speed);
+		RightMotor.set(speed);
+		Timer.delay(time);
+		LeftMotor.set(0.0);
+		RightMotor.set(0);
+	}
+
+	public void AutoPointTurnRight(double speed, int time) {
+
+		LeftMotor.set(-speed);
+		RightMotor.set(-speed);
+		Timer.delay(time);
 		LeftMotor.set(0.0);
 		RightMotor.set(0);
 	}
