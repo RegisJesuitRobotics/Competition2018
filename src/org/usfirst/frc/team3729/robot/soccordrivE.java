@@ -101,11 +101,18 @@ public class soccordrivE {
 		if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Left) {
 			// START LEFT, ELEMENT LEFT
 			AutoGoForeward(0.5, 2);
-			AutoPointTurnRight(0.38, 1);
+			AutoPointTurnRight(0.325, 1);
+
 		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
-			AutoGoOverLine();
-			AutoGoOverLine();
-			AutoPointTurnLeft(0.38, 1);
+			// START RIGHT, ELEMENT RIGHT
+			AutoGoForeward(0.5, 2);
+			AutoPointTurnLeft(0.325, 1);
+		} else if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Right) {
+			// START RIGHT, ELEMENT RIGHT
+			AutoGoForeward(0.8, 3);
+			AutoPointTurnRight(0.325, 1);
+			AutoGoForeward(0.8, 3);
+			AutoPointTurnRight(0.325,1);
 		}
 	}
 

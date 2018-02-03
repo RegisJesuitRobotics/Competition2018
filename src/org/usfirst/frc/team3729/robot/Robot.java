@@ -105,29 +105,26 @@ public class Robot extends IterativeRobot {
 				Driver.AutoGoOverLine();
 			}
 			// SCORE SWITCH
-			// left start
+
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START LEFT, GOAL IS SWITCH, SWITCH IS ON LEFT
 				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
-				System.out.println("Auto Position Left Switch" + AutoPosLeft);
 
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				// START LEFT, GOAL IS SWITCH, SWITCH IS ON RIGHT
-				Driver.AutoGoOverLine();
-				System.out.println("Auto Position Right Switch" + AutoPosRight);
+				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
 			}
-			// right start
-			// THIS ONE
+
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START RIGHT, GOAL IS SWITCH, SWITCH IS ON LEFT
 				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
-				// UP U FUKER
+
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
-				// START RIGHT, GOAL IS SWITCH, SWITCH IS ON RIGHT
+				// START ON RIGHT, SWITCH IS GOAL, SWITCH IS ON RIGHT
 				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
 			}
 
@@ -145,6 +142,7 @@ public class Robot extends IterativeRobot {
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
 				Driver.AutoScoreScale(ScaleSide, FieldStartingPosition.Right);
+
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				// START RIGHT, GOAL IS SCALE, SCALE IS ON THE RIGHT
