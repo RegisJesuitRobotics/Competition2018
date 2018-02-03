@@ -102,7 +102,19 @@ public class soccordrivE {
 		RightMotor.stopMotor();
 
 	}
-
+	public void AutoScoreSwitch(FieldElementScoringSide SwitchSide, FieldStartingPosition StartingPosition) {
+		if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Left) {
+			AutoGoOverLine();
+			AutoGoOverLine();
+			AutoPointTurnRight(0.38, 1);
+		}
+		else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
+			AutoGoOverLine();
+			AutoGoOverLine();
+			AutoPointTurnLeft(0.38, 1);
+		}
+	}
+	
 	public void AutoGoRight(double speed, int time) {
 		LeftMotor.set(-speed * 0.5);
 		RightMotor.set(speed);
