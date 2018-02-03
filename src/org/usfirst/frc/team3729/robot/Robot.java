@@ -83,7 +83,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		// System.out.println(autoSelectedPosition);
 		// System.out.println(autoSelectedObjective);
- 
+
 		// FOR AUTO METHODS USE SPEED THEN TIME
 		// GO OVER LINE
 		while (autoMove) {
@@ -95,29 +95,25 @@ public class Robot extends IterativeRobot {
 				Driver.AutoGoOverLine();
 			} else if (autoSelectedPosition.equals(AutoPosMid) && autoSelectedObjective.equals(AutoGoalLine)) {
 				Driver.AutoGoOverLine();
-			} 
-			// SCORE SWITCH  
+			}
+			// SCORE SWITCH
 			// left start
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
 				System.out.println("Auto Position Left Switch" + AutoPosLeft);
-				
-				
-				
+
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				Driver.AutoGoOverLine();
 				System.out.println("Auto Position Right Switch" + AutoPosRight);
 			}
 			// right start
-			
-			
-			//THIS ONE
+			// THIS ONE
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
-			//UP U FUKER
+				// UP U FUKER
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
@@ -127,7 +123,7 @@ public class Robot extends IterativeRobot {
 			// left start
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				Driver.AutoGoOverLine();
+				Driver.AutoScoreScale(ScaleSide, FieldStartingPosition.Left);
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				Driver.AutoGoOverLine();
@@ -135,7 +131,7 @@ public class Robot extends IterativeRobot {
 			// right start
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				Driver.AutoGoOverLine();
+				Driver.AutoScoreScale(ScaleSide, FieldStartingPosition.Right);
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				Driver.AutoGoOverLine();
