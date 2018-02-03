@@ -89,32 +89,28 @@ public class soccordrivE {
 
 		LeftMotor.set(-0.5);
 		RightMotor.set(0.5);
-		// try {
-		// wait(1);
-		// } catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		System.out.println("PreDELAY");
+		// System.out.println("PreDELAY");
 		Timer.delay(1);
-		System.out.println("cuccckerino");
+		// System.out.println("cuccckerino");
 		LeftMotor.stopMotor();
 		RightMotor.stopMotor();
 
 	}
+
 	public void AutoScoreSwitch(FieldElementScoringSide SwitchSide, FieldStartingPosition StartingPosition) {
 		if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Left) {
-			AutoGoOverLine();
-			AutoGoOverLine();
+			// START LEFT, ELEMENT LEFT
+			AutoGoForeward(0.5, 2);
 			AutoPointTurnRight(0.38, 1);
 		}
+
 		else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
-			AutoGoOverLine();
-			AutoGoOverLine();
+			// START RIGHT ELEMENT RIGHT
+			AutoGoForeward(0.5, 2);
 			AutoPointTurnLeft(0.38, 1);
 		}
 	}
-	
+
 	public void AutoGoRight(double speed, int time) {
 		LeftMotor.set(-speed * 0.5);
 		RightMotor.set(speed);
