@@ -49,6 +49,14 @@ public class DriveClass {
 		Map.RightMotor.set(-RightPower * Limiter);
 	}
 
+	// GYROSCOPE METHODS
+	// Change the variables sent to turn methods from time to degress
+	public void Turn(int degrees) {
+		// GYRO.getDegress
+		// Use a loop maybe?
+		// Make it so this runs until we get to whatever degrees we input
+	}
+
 	public void TestBoi() {
 		if (playStation.GetButtonX()) {
 			Map.testMotor.set(-0.5);
