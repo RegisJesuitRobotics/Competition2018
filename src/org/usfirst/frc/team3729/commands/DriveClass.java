@@ -1,29 +1,23 @@
-package org.usfirst.frc.team3729.robot;
+package org.usfirst.frc.team3729.commands;
 
-import edu.wpi.first.wpilibj.Encoder;
+import org.usfirst.frc.team3729.robot.FieldElementScoringSide;
+import org.usfirst.frc.team3729.robot.FieldStartingPosition;
+
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Victor;
+import subsystems.PlayStationController;
+import subsystems.PortMap;
 
-public class soccordrivE {
-	Victor RightMotor, LeftMotor;
+public class DriveClass {
+
 	PlayStationController playStation;
-	Victor testMotor;
-	Encoder RightEncode, LeftEncode;
-	boolean encodersHaveStated;
+	subsystems.PortMap Map;
 
-	public soccordrivE(PlayStationController playStation) {
+	public DriveClass(PlayStationController playStation) {
 
 		playStation = new PlayStationController(0);
 		this.playStation = playStation;
-		LeftMotor = new Victor(0);
-		RightMotor = new Victor(1);
-		testMotor = new Victor(2);
-		RightEncode = new Encoder(6, 7);
-		LeftEncode = new Encoder(8, 9);
-		// ENCODERS DIO
-		// VICTORS GO IN PWM
+		Map = new PortMap();
 
-		encodersHaveStated = false;
 	}
 
 	public void soccordrivE1() {
@@ -51,49 +45,40 @@ public class soccordrivE {
 			RightPower = Power;
 		}
 
-		LeftMotor.set(-LeftPower * Limiter);
-		RightMotor.set(RightPower * 0.93 * Limiter);
+		Map.LeftMotor.set(LeftPower * 0.88 * Limiter);
+		Map.RightMotor.set(-RightPower * Limiter);
 	}
 
 	public void TestBoi() {
 		if (playStation.GetButtonX()) {
-			testMotor.set(-0.5);
+			Map.testMotor.set(-0.5);
 			System.out.println("omae wa gay if ur reading this omae wa idiot");
 		} else {
-			testMotor.set(0);
+			Map.testMotor.set(0);
 		}
-	}
 
-	public void EncoderStart() {
-		if (encodersHaveStated == false) {
-			LeftEncode.reset();
-			RightEncode.reset();
-			System.out.println(LeftEncode.get());
-			System.out.println(RightEncode.get());
-			encodersHaveStated = true;
-		}
 	}
 
 	public void AutoGoForeward(double speed, int time) {
 
-		LeftMotor.set(-speed);
-		RightMotor.set(speed);
+		Map.LeftMotor.set(-speed);
+		Map.RightMotor.set(speed);
 		Timer.delay(time);
 
-		LeftMotor.stopMotor();
-		RightMotor.stopMotor();
+		Map.LeftMotor.stopMotor();
+		Map.RightMotor.stopMotor();
 
 	}
 
 	public void AutoGoOverLine() {
 
-		LeftMotor.set(-0.5);
-		RightMotor.set(0.5);
+		Map.LeftMotor.set(-0.5);
+		Map.RightMotor.set(0.5);
 		// System.out.println("PreDELAY");
 		Timer.delay(1);
 		// System.out.println("cuccckerino");
-		LeftMotor.stopMotor();
-		RightMotor.stopMotor();
+		Map.LeftMotor.stopMotor();
+		Map.RightMotor.stopMotor();
 
 	}
 
@@ -112,7 +97,13 @@ public class soccordrivE {
 			AutoGoForeward(0.8, 3);
 			AutoPointTurnRight(0.325, 1);
 			AutoGoForeward(0.8, 3);
-			AutoPointTurnRight(0.325,1);
+			AutoPointTurnRight(0.325, 1);
+		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Left) {
+			// START RIGHT, ELEMENT RIGHT
+			AutoGoForeward(0.8, 3);
+			AutoPointTurnLeft(0.325, 1);
+			AutoGoForeward(0.8, 3);
+			AutoPointTurnLeft(0.325, 1);
 		}
 	}
 
@@ -129,38 +120,38 @@ public class soccordrivE {
 	}
 
 	public void AutoGoRight(double speed, int time) {
-		LeftMotor.set(-speed * 0.5);
-		RightMotor.set(speed);
+		Map.LeftMotor.set(-speed * 0.5);
+		Map.RightMotor.set(speed);
 		Timer.delay(time);
-		LeftMotor.set(0.0);
-		RightMotor.set(0);
+		Map.LeftMotor.set(0.0);
+		Map.RightMotor.set(0);
 	}
 
 	public void AutoGoLeft(double speed, int time) {
 
-		LeftMotor.set(-speed);
-		RightMotor.set(speed * 0.5);
+		Map.LeftMotor.set(-speed);
+		Map.RightMotor.set(speed * 0.5);
 		Timer.delay(time);
-		LeftMotor.set(0.0);
-		RightMotor.set(0);
+		Map.LeftMotor.set(0.0);
+		Map.RightMotor.set(0);
 	}
 
 	public void AutoPointTurnLeft(double speed, int time) {
 
-		LeftMotor.set(speed);
-		RightMotor.set(speed);
+		Map.LeftMotor.set(speed);
+		Map.RightMotor.set(speed);
 		Timer.delay(time);
-		LeftMotor.set(0.0);
-		RightMotor.set(0);
+		Map.LeftMotor.set(0.0);
+		Map.RightMotor.set(0);
 	}
 
 	public void AutoPointTurnRight(double speed, int time) {
 
-		LeftMotor.set(-speed);
-		RightMotor.set(-speed);
+		Map.LeftMotor.set(-speed);
+		Map.RightMotor.set(-speed);
 		Timer.delay(time);
-		LeftMotor.set(0.0);
-		RightMotor.set(0);
+		Map.LeftMotor.set(0.0);
+		Map.RightMotor.set(0);
 	}
 
 }

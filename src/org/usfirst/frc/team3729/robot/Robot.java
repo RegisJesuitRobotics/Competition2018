@@ -8,16 +8,19 @@
 
 package org.usfirst.frc.team3729.robot;
 
+import org.usfirst.frc.team3729.commands.DriveClass;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import subsystems.PlayStationController;
 
 public class Robot extends IterativeRobot {
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
 
-	private soccordrivE Driver;
+	private DriveClass Driver;
 	private boolean autoMove = false;
 	FieldElementScoringSide SwitchSide;
 	FieldElementScoringSide ScaleSide;
@@ -34,7 +37,7 @@ public class Robot extends IterativeRobot {
 	final String AutoGoalScale = "AGoalScale";
 
 	public Robot() {
-		Driver = new soccordrivE(new PlayStationController(0));
+		Driver = new DriveClass(new PlayStationController(0));
 	}
 
 	@Override
@@ -163,10 +166,6 @@ public class Robot extends IterativeRobot {
 		while (isOperatorControl() && isEnabled()) {
 			Driver.soccordrivE1();
 			Driver.TestBoi();
-
-			Driver.EncoderStart();
-			SmartDashboard.putNumber("Left Encoder", Driver.LeftEncode.get());
-			SmartDashboard.putNumber("Right Encoder", Driver.RightEncode.get());
 
 		}
 	}
