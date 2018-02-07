@@ -20,7 +20,7 @@ public class DriveClass {
 
 	}
 
-	public void soccordrivE1() {
+	public void TeleOpDrive() {
 		double RightTrigger = playStation.GetRightTrigger();
 		double LeftTrigger = playStation.GetLeftTrigger();
 		double LeftStick = playStation.GetLeftStickAxisX();
@@ -51,8 +51,8 @@ public class DriveClass {
 
 	// GYROSCOPE METHODS
 	// Change the variables sent to turn methods from time to degress
-	public void Turn(int degrees) {
-		// GYRO.getDegress
+	public void TurnAmount(int degrees) {
+		// GYRO.getDegress until it reaches degress 
 		// Use a loop maybe?
 		// Make it so this runs until we get to whatever degrees we input
 	}
