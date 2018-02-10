@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		String gameData;
 
+	try {
 		// FMS DATA PULL FOR SWITCH (INDEX 0 IS SWITCH)
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.charAt(0) == 'L' || gameData.charAt(0) == 'l') {
@@ -57,6 +58,9 @@ public class Robot extends IterativeRobot {
 		} else {
 			ScaleSide = FieldElementScoringSide.Right;
 		}
+	}catch(Exception ex) {
+		System.out.println("No FMS data");
+	}
 		// INPUT START POSITION
 		PositionChooser = new SendableChooser();
 		PositionChooser.addDefault("Autonomous Position Left", AutoPosLeft);
