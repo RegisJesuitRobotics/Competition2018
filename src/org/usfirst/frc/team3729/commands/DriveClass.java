@@ -45,73 +45,81 @@ public class DriveClass {
 			RightPower = Power;
 		}
 
-		Map.LeftMotor.set(LeftPower * 0.88 * Limiter);
-		Map.RightMotor.set(-RightPower * Limiter);
+		Map.LeftMotor.set(-LeftPower * Limiter);
+		Map.RightMotor.set(RightPower * Limiter);
 	}
 
 	// GYROSCOPE METHODS
 	// Change the variables sent to turn methods from time to degress
 	public void TurnAmount(int degrees) {
-		// GYRO.getDegress until it reaches degress 
+		// GYRO.getDegress until it reaches degress
 		// Use a loop maybe?
 		// Make it so this runs until we get to whatever degrees we input
 	}
 
-	public void TestBoi() {
-		if (playStation.GetButtonX()) {
-			Map.testMotor.set(-0.5);
-			System.out.println("omae wa gay if ur reading this omae wa idiot");
-		} else {
-			Map.testMotor.set(0);
-		}
-
-	}
+	// public void TestBoi() {
+	// if (playStation.GetButtonX()) {
+	// Map.testMotor.set(-0.5);
+	// System.out.println("omae wa gay if ur reading this omae wa idiot");
+	// } else {
+	// Map.testMotor.set(0);
+	// }
+	//
+	// }
 
 	public void AutoGoForeward(double speed, int time) {
 
-		Map.LeftMotor.set(-speed);
-		Map.RightMotor.set(speed);
-		Timer.delay(time);
+		Map.LeftMotor.set(speed);
+		Map.RightMotor.set(-speed);
+	    Timer.delay(time);
 
 		Map.LeftMotor.stopMotor();
 		Map.RightMotor.stopMotor();
-
+ 
 	}
 
 	public void AutoGoOverLine() {
 
-		Map.LeftMotor.set(-0.5);
-		Map.RightMotor.set(0.5);
+		Map.LeftMotor.set(1);
+		Map.RightMotor.set(-1*0.64);
 		// System.out.println("PreDELAY");
-		Timer.delay(1);
+		Timer.delay(2);
 		// System.out.println("cuccckerino");
-		Map.LeftMotor.stopMotor();
 		Map.RightMotor.stopMotor();
-
+		Map.LeftMotor.stopMotor();
+   
 	}
 
 	public void AutoScoreSwitch(FieldElementScoringSide SwitchSide, FieldStartingPosition StartingPosition) {
 		if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Left) {
 			// START LEFT, ELEMENT LEFT
-			AutoGoForeward(0.5, 2);
-			AutoPointTurnRight(0.325, 1);
-
+			System.out.println("starbucks");
+			AutoGoOverLine();
+			AutoPointTurnRight(0.25, 1);
+			
 		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
 			// START RIGHT, ELEMENT RIGHT
-			AutoGoForeward(0.5, 2);
-			AutoPointTurnLeft(0.325, 1);
+			AutoGoOverLine();
+			AutoPointTurnLeft(0.25, 1);
 		} else if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Right) {
-			// START RIGHT, ELEMENT RIGHT
-			AutoGoForeward(0.8, 3);
-			AutoPointTurnRight(0.325, 1);
-			AutoGoForeward(0.8, 3);
-			AutoPointTurnRight(0.325, 1);
+			// START LEFT, ELEMENT RIGHT\
+			System.out.println("chipotle");
+			AutoGoOverLine();
+			AutoGoForeward(0.6, 1);
+			AutoPointTurnRight(0.25, 1);
+			AutoGoForeward(0.5, 3);
+			AutoPointTurnRight(0.25, 1);
+			AutoGoForeward(0.5, 1);
+			AutoGoRight(0.25, 1);
+			
 		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Left) {
-			// START RIGHT, ELEMENT RIGHT
+			// START RIGHT, ELEMENT LEFT
+			AutoGoOverLine();
+			AutoPointTurnLeft(0.25, 1);
 			AutoGoForeward(0.8, 3);
-			AutoPointTurnLeft(0.325, 1);
-			AutoGoForeward(0.8, 3);
-			AutoPointTurnLeft(0.325, 1);
+			AutoPointTurnLeft(0.25, 1);
+			AutoGoForeward(0.8, 1);
+			AutoGoLeft(0.25, 1);
 		}
 	}
 
@@ -146,8 +154,8 @@ public class DriveClass {
 
 	public void AutoPointTurnLeft(double speed, int time) {
 
-		Map.LeftMotor.set(speed);
-		Map.RightMotor.set(speed);
+		Map.LeftMotor.set(-speed);
+		Map.RightMotor.set(-speed);
 		Timer.delay(time);
 		Map.LeftMotor.set(0.0);
 		Map.RightMotor.set(0);
@@ -155,10 +163,10 @@ public class DriveClass {
 
 	public void AutoPointTurnRight(double speed, int time) {
 
-		Map.LeftMotor.set(-speed);
-		Map.RightMotor.set(-speed);
+		Map.LeftMotor.set(speed);
+		Map.RightMotor.set(speed);
 		Timer.delay(time);
-		Map.LeftMotor.set(0.0);
+		Map.LeftMotor.set(0);
 		Map.RightMotor.set(0);
 	}
 
