@@ -11,13 +11,14 @@ public class DriveClass {
 
 	PlayStationController playStation;
 	subsystems.PortMap Map;
+	double SideCompensation;
 
 	public DriveClass(PlayStationController playStation) {
 
 		playStation = new PlayStationController(0);
 		this.playStation = playStation;
 		Map = new PortMap();
-
+		SideCompensation = 0.97;
 	}
 
 	public void TeleOpDrive() {
@@ -30,7 +31,7 @@ public class DriveClass {
 		double Power;
 		double Limiter = 0.8;
 		double turn = 2 * LeftStick;
-		Power = LeftTrigger - RightTrigger;
+		Power = RightTrigger - LeftTrigger;
 		// System.out.println("left"+LeftStick);
 		if (LeftStick > Deadzone) {
 
@@ -45,129 +46,171 @@ public class DriveClass {
 			RightPower = Power;
 		}
 
-		Map.LeftMotor.set(-LeftPower * Limiter);
-		Map.RightMotor.set(RightPower * Limiter);
-	}
-
-	// GYROSCOPE METHODS
-	// Change the variables sent to turn methods from time to degress
-	public void TurnAmount(int degrees) {
-		// GYRO.getDegress until it reaches degress
-		// Use a loop maybe?
-		// Make it so this runs until we get to whatever degrees we input
-	}
-
-	// public void TestBoi() {
-	// if (playStation.GetButtonX()) {
-	// Map.testMotor.set(-0.5);
-	// System.out.println("omae wa gay if ur reading this omae wa idiot");
-	// } else {
-	// Map.testMotor.set(0);
-	// }
-	//
-	// }
-
-	public void AutoGoForeward(double speed, int time) {
-
-		Map.LeftMotor.set(speed);
-		Map.RightMotor.set(-speed);
-	    Timer.delay(time);
-
-		Map.LeftMotor.stopMotor();
-		Map.RightMotor.stopMotor();
- 
+		Map.LeftMotorFront.set(-LeftPower * Limiter * SideCompensation);
+		Map.RightMotorFront.set(RightPower * Limiter);
 	}
 
 	public void AutoGoOverLine() {
+		AutoGoForeward(0.8, 1);
 
-		Map.LeftMotor.set(1);
-		Map.RightMotor.set(-1*0.64);
-		// System.out.println("PreDELAY");
-		Timer.delay(2);
-		// System.out.println("cuccckerino");
-		Map.RightMotor.stopMotor();
-		Map.LeftMotor.stopMotor();
-   
 	}
 
 	public void AutoScoreSwitch(FieldElementScoringSide SwitchSide, FieldStartingPosition StartingPosition) {
 		if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Left) {
 			// START LEFT, ELEMENT LEFT
-			System.out.println("starbucks");
-			AutoGoOverLine();
-			AutoPointTurnRight(0.25, 1);
-			
+
+			AutoGoForeward(0.5, 2);
+			AutoStop(2);
+			AutoPointTurnRight(0.424, 1);
+			AutoStop(1);
+			AutoGoForeward(0.23, 1);
+			System.out.println("starbucks1");
+
 		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
 			// START RIGHT, ELEMENT RIGHT
-			AutoGoOverLine();
-			AutoPointTurnLeft(0.25, 1);
+
+			AutoGoForeward(0.5, 2);
+			AutoStop(2);
+			AutoPointTurnLeft(0.424, 1);
+			AutoStop(1);
+			AutoGoForeward(0.23, 1);
+			System.out.println("coffee");
 		} else if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Right) {
-			// START LEFT, ELEMENT RIGHT\
+			// START LEFT, ELEMENT RIGHT
+
+			AutoGoForeward(0.666, 2);
+			AutoStop(2);
+			AutoPointTurnRight(0.45, 1);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnRight(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+
 			System.out.println("chipotle");
-			AutoGoOverLine();
-			AutoGoForeward(0.6, 1);
-			AutoPointTurnRight(0.25, 1);
-			AutoGoForeward(0.5, 3);
-			AutoPointTurnRight(0.25, 1);
-			AutoGoForeward(0.5, 1);
-			AutoGoRight(0.25, 1);
-			
 		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Left) {
 			// START RIGHT, ELEMENT LEFT
-			AutoGoOverLine();
-			AutoPointTurnLeft(0.25, 1);
-			AutoGoForeward(0.8, 3);
-			AutoPointTurnLeft(0.25, 1);
-			AutoGoForeward(0.8, 1);
-			AutoGoLeft(0.25, 1);
+			AutoGoForeward(0.666, 2);
+			AutoStop(2);
+			AutoPointTurnLeft(0.45, 1);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnLeft(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			System.out.println("chili's");
 		}
 	}
 
 	public void AutoScoreScale(FieldElementScoringSide ScaleSide, FieldStartingPosition StartingPosition) {
 		if (StartingPosition == FieldStartingPosition.Left && ScaleSide == FieldElementScoringSide.Left) {
-			AutoGoOverLine();
-			AutoGoOverLine();
-			AutoPointTurnRight(0.38, 1);
+			// Start left element on left
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnRight(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			System.out.println("Thiccer than a snicker");
+
 		} else if (StartingPosition == FieldStartingPosition.Right && ScaleSide == FieldElementScoringSide.Right) {
-			AutoGoOverLine();
-			AutoGoOverLine();
-			AutoPointTurnLeft(0.38, 1);
+			// Start right element on right
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnLeft(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			System.out.println("Fetcher than a sketcher");
+
+		} else if (StartingPosition == FieldStartingPosition.Left && ScaleSide == FieldElementScoringSide.Right) {
+			// Start left element on Right
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnRight(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnLeft(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnLeft(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			System.out.println("Gayer than a mayor");
+
+		} else if (StartingPosition == FieldStartingPosition.Right && ScaleSide == FieldElementScoringSide.Left) {
+			// Start right element on right
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnLeft(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnRight(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			AutoStop(2);
+			AutoPointTurnRight(0, 0);
+			AutoStop(2);
+			AutoGoForeward(0, 0);
+			System.out.println("Finer than a Diner");
+
 		}
 	}
 
-	public void AutoGoRight(double speed, int time) {
-		Map.LeftMotor.set(-speed * 0.5);
-		Map.RightMotor.set(speed);
+	public void AutoGoForeward(double speed, int time) {
+
+		Map.LeftMotorFront.set(-speed * SideCompensation);
+		Map.RightMotorFront.set(speed);
 		Timer.delay(time);
-		Map.LeftMotor.set(0.0);
-		Map.RightMotor.set(0);
+
+		Map.LeftMotorFront.stopMotor();
+		Map.RightMotorFront.stopMotor();
+
+	}
+
+	public void AutoGoRight(double speed, int time) {
+		Map.LeftMotorFront.set(-speed * 0.5 * SideCompensation);
+		Map.RightMotorFront.set(speed);
+		Timer.delay(time);
+		Map.LeftMotorFront.stopMotor();
+		Map.RightMotorFront.stopMotor();
 	}
 
 	public void AutoGoLeft(double speed, int time) {
 
-		Map.LeftMotor.set(-speed);
-		Map.RightMotor.set(speed * 0.5);
+		Map.LeftMotorFront.set(-speed * SideCompensation);
+		Map.RightMotorFront.set(speed * 0.5 * 0.8);
 		Timer.delay(time);
-		Map.LeftMotor.set(0.0);
-		Map.RightMotor.set(0);
-	}
-
-	public void AutoPointTurnLeft(double speed, int time) {
-
-		Map.LeftMotor.set(-speed);
-		Map.RightMotor.set(-speed);
-		Timer.delay(time);
-		Map.LeftMotor.set(0.0);
-		Map.RightMotor.set(0);
+		Map.LeftMotorFront.stopMotor();
+		Map.RightMotorFront.stopMotor();
 	}
 
 	public void AutoPointTurnRight(double speed, int time) {
 
-		Map.LeftMotor.set(speed);
-		Map.RightMotor.set(speed);
+		Map.LeftMotorFront.set(-speed * SideCompensation);
+		Map.RightMotorFront.set(-speed);
 		Timer.delay(time);
-		Map.LeftMotor.set(0);
-		Map.RightMotor.set(0);
+		Map.LeftMotorFront.stopMotor();
+		Map.RightMotorFront.stopMotor();
 	}
 
+	public void AutoPointTurnLeft(double speed, int time) {
+		System.out.println(" Motor Left Pos, Motor Right pos");
+		Map.LeftMotorFront.set(speed * SideCompensation);
+		Map.RightMotorFront.set(speed);
+		Timer.delay(time);
+		Map.LeftMotorFront.stopMotor();
+		Map.RightMotorFront.stopMotor();
+
+	}
+
+	public void AutoStop(int time) {
+		Map.LeftMotorFront.stopMotor();
+		Map.RightMotorFront.stopMotor();
+		Timer.delay(time);
+
+	}
 }
