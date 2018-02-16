@@ -8,6 +8,7 @@
 
 package org.usfirst.frc.team3729.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import org.usfirst.frc.team3729.commands.DriveClass;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -20,7 +21,7 @@ public class Robot extends IterativeRobot {
 	private static final String kDefaultAuto = "Default";
 	private static final String kCustomAuto = "My Auto";
 
-	private DriveClass Driver;
+	private DriveClass DriveCode;
 	private boolean autoMove = false;
 	FieldElementScoringSide SwitchSide;
 	FieldElementScoringSide ScaleSide;
@@ -37,11 +38,12 @@ public class Robot extends IterativeRobot {
 	final String AutoGoalScale = "AGoalScale";
 
 	public Robot() {
-		Driver = new DriveClass(new PlayStationController(0));
+		DriveCode = new DriveClass(new PlayStationController(0));
 	}
 
 	@Override
 	public void robotInit() {
+		CameraServer.getInstance().startAutomaticCapture();
 		String gameData;
 
 		// FMS DATA PULL FOR SWITCH (INDEX 0 IS SWITCH)
@@ -85,8 +87,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		// System.out.println(autoSelectedPosition);
-		// System.out.println(autoSelectedObjective);
 
 		// FOR AUTO METHODS USE SPEED THEN TIME
 		// GO OVER LINE
@@ -98,59 +98,59 @@ public class Robot extends IterativeRobot {
 
 			if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalLine)) {
 				// START LEFT, GOAL IS LINE
-				Driver.AutoGoOverLine();
+				DriveCode.AutoGoOverLine();
 
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalLine)) {
 				// START RIGHT, GOAL IS LINE
-				Driver.AutoGoOverLine();
+				DriveCode.AutoGoOverLine();
 
 			} else if (autoSelectedPosition.equals(AutoPosMid) && autoSelectedObjective.equals(AutoGoalLine)) {
 				// START MIDDLE, GOAL IS LINE
-				Driver.AutoGoOverLine();
+				DriveCode.AutoGoOverLine();
 			}
 			// SCORE SWITCH
 
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START LEFT, GOAL IS SWITCH, SWITCH IS ON LEFT
-				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
+				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
 
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				// START LEFT, GOAL IS SWITCH, SWITCH IS ON RIGHT
-				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
+				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
 			}
 
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START RIGHT, GOAL IS SWITCH, SWITCH IS ON LEFT
-				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
+				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
 
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				// START ON RIGHT, SWITCH IS GOAL, SWITCH IS ON RIGHT
-				Driver.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
+				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
 			}
 
 			// SCORE SCALE
 
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				Driver.AutoScoreScale(ScaleSide, FieldStartingPosition.Left);
+				DriveCode.AutoScoreScale(ScaleSide, FieldStartingPosition.Left);
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				// START LEFT, GOAL IS SCALE, SCALE IS ON THE RIGHT
-				Driver.AutoGoOverLine();
+				DriveCode.AutoGoOverLine();
 			}
 
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				Driver.AutoScoreScale(ScaleSide, FieldStartingPosition.Right);
+				DriveCode.AutoScoreScale(ScaleSide, FieldStartingPosition.Right);
 
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				// START RIGHT, GOAL IS SCALE, SCALE IS ON THE RIGHT
-				Driver.AutoGoOverLine();
+				DriveCode.AutoGoOverLine();
 			}
 			autoMove = false;
 		}
@@ -158,20 +158,25 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-
+		/* THIS IS A COMMENT FOR U KIDDOS THAT NEED TO LEARN HOW TO DO IT
+		 RUN SHUFFLEBOARD BY GOING TO WPILIB (TOP OF ECLIPSE WINDOW) --> RUN
+		 SHUFFLEBOARD
+		 If shuffleboard does not work, open smartdashboard the same way
+		 
+		 All sensors go in DIO ports
+		 All non-CANbus motors go in 
+		 */
+		
 	}
 
 	@Override
 	public void teleopPeriodic() {
-		// m_robotDrive.setSafetyEnabled(true);
-		while (isOperatorControl() && isEnabled()) {
-			Driver.TeleOpDrive();
-			//Driver.TestBoi();
 
+		while (isOperatorControl() && isEnabled()) {
+			DriveCode.TeleOpDrive();
+			DriveCode.TeleOpGrab();
+			DriveCode.TeleOpLift();
 		}
 	}
 
-	// private void execute() {
-	// SmartDashboard.putNumber("Left Encoder", .getLeftEncode());
-	// }
 }
