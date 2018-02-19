@@ -8,17 +8,17 @@ public class PlayStationController extends Joystick {
 		super(port);
 	}
 
-	public boolean GetButtonX() {
-		return super.getRawButton(2);
-
-	}
-
 	public boolean GetButtonSquare() {
 		return super.getRawButton(1);
 
 	}
 
-	public boolean GetButtonO() {
+	public boolean GetButtonX() {
+		return super.getRawButton(2);
+
+	}
+
+	public boolean GetButtonCircle() {
 		return super.getRawButton(3);
 
 	}
@@ -46,23 +46,23 @@ public class PlayStationController extends Joystick {
 		return super.getRawButton(8);
 	}
 
-	public boolean GetShare() {
+	public boolean GetButtonShare() {
 		return super.getRawButton(9);
 	}
 
-	public boolean GetOption() {
+	public boolean GetButtonOption() {
 		return super.getRawButton(10);
 	}
 
-	public boolean GetLeftJoystck() {
+	public boolean GetButtonLeftJoystck() {
 		return super.getRawButton(11);
 	}
 
-	public boolean GetRightJoystick() {
+	public boolean GetButtonRightJoystick() {
 		return super.getRawButton(12);
 	}
 
-	public boolean GetHomeButton() {
+	public boolean GetButtonHome() {
 		return super.getRawButton(13);
 	}
 

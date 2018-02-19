@@ -8,7 +8,6 @@
 
 package org.usfirst.frc.team3729.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import org.usfirst.frc.team3729.commands.DriveClass;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -43,7 +42,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		CameraServer.getInstance().startAutomaticCapture();
 		String gameData;
 
 		// FMS DATA PULL FOR SWITCH (INDEX 0 IS SWITCH)
@@ -54,7 +52,7 @@ public class Robot extends IterativeRobot {
 			SwitchSide = FieldElementScoringSide.Right;
 		}
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if (gameData.charAt(0) == 'L' || gameData.charAt(0) == 'l') {
+		if (gameData.charAt(1) == 'L' || gameData.charAt(1) == 'l') {
 			ScaleSide = FieldElementScoringSide.Left;
 		} else {
 			ScaleSide = FieldElementScoringSide.Right;
@@ -158,24 +156,27 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		/* THIS IS A COMMENT FOR U KIDDOS THAT NEED TO LEARN HOW TO DO IT
-		 RUN SHUFFLEBOARD BY GOING TO WPILIB (TOP OF ECLIPSE WINDOW) --> RUN
-		 SHUFFLEBOARD
-		 If shuffleboard does not work, open smartdashboard the same way
-		 
-		 All sensors go in DIO ports
-		 All non-CANbus motors go in 
+		/*
+		 * THIS IS A COMMENT FOR U KIDDOS THAT NEED TO LEARN HOW TO DO IT RUN
+		 * SHUFFLEBOARD BY GOING TO WPILIB (TOP OF ECLIPSE WINDOW) --> RUN SHUFFLEBOARD
+		 * If shuffleboard does not work, open smartdashboard the same way
+		 * 
+		 * All sensors go in DIO ports All non-CANbus motors go in
 		 */
-		
+
 	}
 
 	@Override
 	public void teleopPeriodic() {
 
 		while (isOperatorControl() && isEnabled()) {
+			DriveCode.VoltageDetector();
 			DriveCode.TeleOpDrive();
-			DriveCode.TeleOpGrab();
-			DriveCode.TeleOpLift();
+			DriveCode.TeleOpManualLifter();
+			DriveCode.TeleOpTransmission();
+			DriveCode.TeleOpClimb();
+			DriveCode.TeleOpBoxSpin();
+			DriveCode.TeleOpGrabBox();
 		}
 	}
 
