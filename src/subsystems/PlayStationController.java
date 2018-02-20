@@ -1,14 +1,18 @@
 package subsystems;
 
+import java.util.Date;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 public class PlayStationController extends Joystick {
 
 	public PlayStationController(int port) {
 		super(port);
+
 	}
 
 	public boolean GetButtonSquare() {
+
 		return super.getRawButton(1);
 
 	}
@@ -19,6 +23,7 @@ public class PlayStationController extends Joystick {
 	}
 
 	public boolean GetButtonCircle() {
+
 		return super.getRawButton(3);
 
 	}
@@ -34,6 +39,7 @@ public class PlayStationController extends Joystick {
 	}
 
 	public boolean GetButtonR1() {
+
 		return super.getRawButton(6);
 
 	}
@@ -59,10 +65,12 @@ public class PlayStationController extends Joystick {
 	}
 
 	public boolean GetButtonRightJoystick() {
+
 		return super.getRawButton(12);
 	}
 
 	public boolean GetButtonHome() {
+
 		return super.getRawButton(13);
 	}
 

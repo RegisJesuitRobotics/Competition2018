@@ -2,9 +2,7 @@ package org.usfirst.frc.team3729.commands;
 
 import java.util.Date;
 
-import org.usfirst.frc.team3729.robot.FieldElementScoringSide;
-import org.usfirst.frc.team3729.robot.FieldStartingPosition;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import subsystems.PlayStationController;
@@ -16,18 +14,16 @@ public class DriveClass {
 	subsystems.PortMap Map;
 	AutoCalledMethods Auto;
 
-	double timeBetweenPresses = 1;
-	Date now = new Date();
-	Date now2 = new Date();
-	Date now3 = new Date();
-	Date LastRightJoystickButtonPress = new Date();
-	Date LastR1Press = new Date();
-	Date LastHomePress = new Date();
+	double timeBetweenPresses = 100;
 	public static double SideCompensation;
 	public int LifterState;
 	boolean BoxSpinMotorIsRunning;
 	boolean IsHoldingCube;
 	boolean TransmissionIsToggled;
+
+	Date LastHomePress = new Date();
+	Date LastSquarePress = new Date();
+	Date LastCirclePress = new Date();
 
 	public DriveClass(PlayStationController playStation) {
 		SideCompensation = 1.0;
@@ -93,35 +89,37 @@ public class DriveClass {
 
 	public void TeleOpTransmission() {
 		if (playStation.GetButtonHome() == true) {
-			now3 = new Date();
-			if (now3.getTime() - LastHomePress.getTime() > timeBetweenPresses) {
+			Date now = new Date();
+			if (now.getTime() - LastHomePress.getTime() > timeBetweenPresses) {
 				ToggleTransmission();
-			}
-		}
-		LastHomePress = now;
-	}
 
-	public void TeleOpBoxSpin() {
-
-		if (playStation.GetButtonR1() == true) {
-			now = new Date();
-			if (now.getTime() - LastR1Press.getTime() > timeBetweenPresses) {
-				ToggleBoxSpin();
 			}
+			LastHomePress = now;
 		}
-		LastR1Press = now;
 	}
+	//
+	// public void TeleOpBoxSpin() {
+	//
+	// if (playStation.GetButtonSquare() == true) {
+	// Date now = new Date();
+	// if (now.getTime() - LastSquarePress.getTime() > timeBetweenPresses) {
+	// ToggleBoxSpin();
+	//
+	// }
+	// LastSquarePress = now;
+	// }
+	// }
 
 	public void TeleOpGrabBox() {
 
-		if (playStation.GetButtonRightJoystick() == true) {
-			now2 = new Date();
-			if (now2.getTime() - LastRightJoystickButtonPress.getTime() > timeBetweenPresses) {
+		if (playStation.GetButtonCircle() == true) {
+			Date now = new Date();
+			if (now.getTime() - LastCirclePress.getTime() > timeBetweenPresses) {
 				ToggleHolding();
 			}
+			LastCirclePress = now;
 
 		}
-		LastRightJoystickButtonPress = now2;
 	}
 
 	public void TeleOpManualLifter() {
@@ -142,6 +140,29 @@ public class DriveClass {
 		}
 	}
 
+	// TODO EDIT RAISE CONDITIONS
+	// public void TeleOpRaiseTwoFeet() {
+	// if (playStation.GetButtonSquare() == true) {
+	// Date now = new Date();
+	// // TODO FIX
+	// if (now.getTime() - LastSquarePress.getTime() > 6000000) {
+	//
+	// Thread AutoLift = new Thread(() -> {
+	//
+	// Map.LifterMotor.set(0);
+	// Timer.delay(0);
+	// Map.LifterMotor.stopMotor();
+	//
+	// });
+	// AutoLift.start();
+	//
+	// }
+	// LastRightJoystickButtonPress = now;
+	//
+	// }
+	//
+	// }
+
 	public void VoltageDetector() {
 		SmartDashboard.putNumber("Left Front Drive", Map.LeftMotorFront.getBusVoltage());
 		SmartDashboard.putNumber("Left Back Drive", Map.LeftMotorBack.getBusVoltage());
@@ -151,39 +172,18 @@ public class DriveClass {
 
 	}
 
-	// public void TeleOpGoToTwoFeet() {
-	// if (playStation.GetButtonSquare() == true) {
-	// //IF (the lazer isnt on teh ){thing do this
-	// Map.LifterMotor.set(0);
-	// //else if (lazer is on the thing) {
-	// //Map.LiferMotor.stopMotor();
-	// //}
+	// TODO MAKE A CLASS FOR ALL OF THE TOGGLES
+	// public void ToggleBoxSpin() {
+	// if (BoxSpinMotorIsRunning == false) {
+	// Map.BoxSpinMotor.set(0.5);
+	// Map.BoxSpinVictor.set(0.5);
+	// BoxSpinMotorIsRunning = true;
+	// } else if (BoxSpinMotorIsRunning == true) {
+	// Map.BoxSpinMotor.stopMotor();
+	// Map.BoxSpinVictor.stopMotor();
+	// BoxSpinMotorIsRunning = false;
 	// }
 	// }
-	//
-	// public void TeleOpGoToSixFeet() {
-	// if (playStation.GetButtonCircle()==true) {
-	// //IF (the lazer isnt on teh ){thing do this
-	// Map.LifterMotor.set(0);
-	// //else if (lazer is on the thing) {
-	// //Map.LiferMotor.stopMotor();
-	// //}
-	// }
-	// }
-
-	// TOGGLES
-
-	public void ToggleBoxSpin() {
-		if (BoxSpinMotorIsRunning == false) {
-			Map.BoxSpinMotor.set(0.5);
-			Map.BoxSpinVictor.set(0.5);
-			BoxSpinMotorIsRunning = true;
-		} else if (BoxSpinMotorIsRunning == true) {
-			Map.BoxSpinMotor.stopMotor();
-			Map.BoxSpinVictor.stopMotor();
-			BoxSpinMotorIsRunning = false;
-		}
-	}
 
 	public void ToggleHolding() {
 		if (IsHoldingCube == false) {

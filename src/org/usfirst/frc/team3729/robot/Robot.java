@@ -176,9 +176,9 @@ public class Robot extends IterativeRobot {
 			DriveCode.VoltageDetector();
 			DriveCode.TeleOpDrive();
 			DriveCode.TeleOpManualLifter();
-			DriveCode.TeleOpTransmission();
+			// DriveCode.TeleOpTransmission();
 			DriveCode.TeleOpClimb();
-			DriveCode.TeleOpBoxSpin();
+			// DriveCode.TeleOpBoxSpin();
 			DriveCode.TeleOpGrabBox();
 		}
 	}
