@@ -8,6 +8,7 @@
 
 package org.usfirst.frc.team3729.robot;
 
+import org.usfirst.frc.team3729.commands.AutoModes;
 import org.usfirst.frc.team3729.commands.DriveClass;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -21,6 +22,7 @@ public class Robot extends IterativeRobot {
 	private static final String kCustomAuto = "My Auto";
 
 	private DriveClass DriveCode;
+	private AutoModes AutoCode;
 	private boolean autoMove = false;
 	FieldElementScoringSide SwitchSide;
 	FieldElementScoringSide ScaleSide;
@@ -38,6 +40,7 @@ public class Robot extends IterativeRobot {
 
 	public Robot() {
 		DriveCode = new DriveClass(new PlayStationController(0));
+		AutoCode = new AutoModes();
 	}
 
 	@Override
@@ -96,59 +99,59 @@ public class Robot extends IterativeRobot {
 
 			if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalLine)) {
 				// START LEFT, GOAL IS LINE
-				DriveCode.AutoGoOverLine();
+				AutoCode.AutoGoOverLine();
 
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalLine)) {
 				// START RIGHT, GOAL IS LINE
-				DriveCode.AutoGoOverLine();
+				AutoCode.AutoGoOverLine();
 
 			} else if (autoSelectedPosition.equals(AutoPosMid) && autoSelectedObjective.equals(AutoGoalLine)) {
 				// START MIDDLE, GOAL IS LINE
-				DriveCode.AutoGoOverLine();
+				AutoCode.AutoGoOverLine();
 			}
 			// SCORE SWITCH
 
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START LEFT, GOAL IS SWITCH, SWITCH IS ON LEFT
-				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
+				AutoCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
 
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				// START LEFT, GOAL IS SWITCH, SWITCH IS ON RIGHT
-				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
+				AutoCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Left);
 			}
 
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Left) {
 				// START RIGHT, GOAL IS SWITCH, SWITCH IS ON LEFT
-				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
+				AutoCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
 
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalSwitch)
 					&& SwitchSide == FieldElementScoringSide.Right) {
 				// START ON RIGHT, SWITCH IS GOAL, SWITCH IS ON RIGHT
-				DriveCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
+				AutoCode.AutoScoreSwitch(SwitchSide, FieldStartingPosition.Right);
 			}
 
 			// SCORE SCALE
 
 			else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				DriveCode.AutoScoreScale(ScaleSide, FieldStartingPosition.Left);
+				AutoCode.AutoScoreScale(ScaleSide, FieldStartingPosition.Left);
 			} else if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				// START LEFT, GOAL IS SCALE, SCALE IS ON THE RIGHT
-				DriveCode.AutoGoOverLine();
+				AutoCode.AutoGoOverLine();
 			}
 
 			else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Left) {
-				DriveCode.AutoScoreScale(ScaleSide, FieldStartingPosition.Right);
+				AutoCode.AutoScoreScale(ScaleSide, FieldStartingPosition.Right);
 
 			} else if (autoSelectedPosition.equals(AutoPosRight) && autoSelectedObjective.equals(AutoGoalScale)
 					&& ScaleSide == FieldElementScoringSide.Right) {
 				// START RIGHT, GOAL IS SCALE, SCALE IS ON THE RIGHT
-				DriveCode.AutoGoOverLine();
+				AutoCode.AutoGoOverLine();
 			}
 			autoMove = false;
 		}
