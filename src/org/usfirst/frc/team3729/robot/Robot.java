@@ -45,21 +45,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		String gameData;
-
-		// FMS DATA PULL FOR SWITCH (INDEX 0 IS SWITCH)
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if (gameData.charAt(0) == 'L' || gameData.charAt(0) == 'l') {
-			SwitchSide = FieldElementScoringSide.Left;
-		} else {
-			SwitchSide = FieldElementScoringSide.Right;
-		}
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if (gameData.charAt(1) == 'L' || gameData.charAt(1) == 'l') {
-			ScaleSide = FieldElementScoringSide.Left;
-		} else {
-			ScaleSide = FieldElementScoringSide.Right;
-		}
 
 		// INPUT START POSITION
 		PositionChooser = new SendableChooser();
@@ -74,6 +59,7 @@ public class Robot extends IterativeRobot {
 		ObjectiveChooser.addObject("Autonomous Goal Scale", AutoGoalScale);
 		ObjectiveChooser.addObject("Autonomous Goal Switch", AutoGoalSwitch);
 		SmartDashboard.putData("Auto Objective", ObjectiveChooser);
+
 	}
 
 	@Override
@@ -92,11 +78,27 @@ public class Robot extends IterativeRobot {
 		// FOR AUTO METHODS USE SPEED THEN TIME
 		// GO OVER LINE
 		while (autoMove) {
+
+			String gameData;
+			// FMS DATA PULL FOR SWITCH (INDEX 0 IS SWITCH)
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+			if (gameData.charAt(0) == 'L' || gameData.charAt(0) == 'l') {
+				SwitchSide = FieldElementScoringSide.Left;
+			} else {
+				SwitchSide = FieldElementScoringSide.Right;
+			}
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+			if (gameData.charAt(1) == 'L' || gameData.charAt(1) == 'l') {
+				ScaleSide = FieldElementScoringSide.Left;
+			} else {
+				ScaleSide = FieldElementScoringSide.Right;
+			}
+
 			System.out.println(SwitchSide);
 			System.out.println(ScaleSide);
 
 			// SCORE LINE
-
+			// // fuck
 			if (autoSelectedPosition.equals(AutoPosLeft) && autoSelectedObjective.equals(AutoGoalLine)) {
 				// START LEFT, GOAL IS LINE
 				AutoCode.AutoGoOverLine();
@@ -159,6 +161,12 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+
+		// fuck dude lmao this is gonna be hard af and I low key wanna not do this and
+		// just chill
+		// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		// wait no I gotta work
+
 		/*
 		 * THIS IS A COMMENT FOR U KIDDOS THAT NEED TO LEARN HOW TO DO IT RUN
 		 * SHUFFLEBOARD BY GOING TO WPILIB (TOP OF ECLIPSE WINDOW) --> RUN SHUFFLEBOARD
@@ -173,12 +181,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 
 		while (isOperatorControl() && isEnabled()) {
-			DriveCode.VoltageDetector();
+			DriveCode.TeleOpGetVoltage();
 			DriveCode.TeleOpDrive();
 			DriveCode.TeleOpManualLifter();
-			// DriveCode.TeleOpTransmission();
+			DriveCode.TeleOpTransmissionExchange();
 			DriveCode.TeleOpClimb();
-			// DriveCode.TeleOpBoxSpin();
 			DriveCode.TeleOpGrabBox();
 		}
 	}

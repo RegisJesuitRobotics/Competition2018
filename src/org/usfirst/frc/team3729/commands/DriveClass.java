@@ -2,14 +2,13 @@ package org.usfirst.frc.team3729.commands;
 
 import java.util.Date;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import subsystems.PlayStationController;
 import subsystems.PortMap;
 
 public class DriveClass {
-
 	PlayStationController playStation;
 	subsystems.PortMap Map;
 	AutoCalledMethods Auto;
@@ -29,7 +28,7 @@ public class DriveClass {
 		SideCompensation = 1.0;
 		playStation = new PlayStationController(0);
 		this.playStation = playStation;
-		Map = new PortMap();
+		Map = PortMap.getInstance();
 		BoxSpinMotorIsRunning = false;
 		IsHoldingCube = false;
 		TransmissionIsToggled = false;
@@ -61,7 +60,7 @@ public class DriveClass {
 		double RightPower;
 		double LeftPower;
 		double Power;
-		double Limiter = 0.5;
+		double Limiter = 1;
 		double turn = 2 * LeftStick;
 		Power = RightTrigger - LeftTrigger;
 		// System.out.println("left"+LeftStick);
@@ -78,26 +77,24 @@ public class DriveClass {
 			RightPower = Power;
 		}
 
-		Map.LeftMotorFront.set(-LeftPower * Limiter * SideCompensation);
-		Map.LeftMotorBack.set(-LeftPower * Limiter * SideCompensation);
-		Map.RightMotorFront.set(RightPower * Limiter);
-		Map.RightMotorBack.set(RightPower * Limiter);
-
+		Map.LeftDriveMotorFront.set(-LeftPower * Limiter * SideCompensation);
+		Map.RightDriveMotorFront.set(RightPower * Limiter);
+		Map.RightDriveMotorBack.set(RightPower * Limiter);
+		Map.LeftDriveMotorBack.set(-LeftPower * Limiter * SideCompensation);
 	}
 
 	// NON DRIVE TELEOP METHODS
 
-	public void TeleOpTransmission() {
-		if (playStation.GetButtonHome() == true) {
-			Date now = new Date();
-			if (now.getTime() - LastHomePress.getTime() > timeBetweenPresses) {
-				ToggleTransmission();
-
-			}
-			LastHomePress = now;
-		}
+	public void TeleOpGetVoltage() {
+		// SmartDashboard.putNumber("Left Drive Motor",
+		// Map.LeftDriveMotorFront.getBusVoltage());
+		// SmartDashboard.putNumber("Right Drive Motor",
+		// Map.RightDriveMotorFront.getBusVoltage());
+		// SmartDashboard.putNumber("Box Spin Motor", Map.GrabberMotor.getBusVoltage());
+		// SmartDashboard.putNumber("Climber Motor", Map.ClimbMotor.getBusVoltage());
+		// SmartDashboard.putNumber("Lifter Motor", Map.LifterMotor.getBusVoltage());
 	}
-	//
+
 	// public void TeleOpBoxSpin() {
 	//
 	// if (playStation.GetButtonSquare() == true) {
@@ -108,6 +105,7 @@ public class DriveClass {
 	// }
 	// LastSquarePress = now;
 	// }
+	// SmartDashboard.putBoolean("Spinner is running", BoxSpinMotorIsRunning);
 	// }
 
 	public void TeleOpGrabBox() {
@@ -118,15 +116,14 @@ public class DriveClass {
 				ToggleHolding();
 			}
 			LastCirclePress = now;
-
 		}
 	}
 
 	public void TeleOpManualLifter() {
 		if (playStation.GetButtonTriangle()) {
-			Map.LifterMotor.set(0.8);
+			Map.LifterMotor.set(-1);
 		} else if (playStation.GetButtonX()) {
-			Map.LifterMotor.set(-0.8);
+			Map.LifterMotor.set(1);
 		} else {
 			Map.LifterMotor.stopMotor();
 		}
@@ -134,10 +131,24 @@ public class DriveClass {
 
 	public void TeleOpClimb() {
 		if (playStation.GetButtonL1() == true) {
-			Map.ClimbMotor.set(0.5);
+			Map.ClimbMotor.set(1);
+		} else if (playStation.GetButtonR1()) {
+			Map.ClimbMotor.set(-1);
 		} else {
 			Map.ClimbMotor.stopMotor();
 		}
+
+	}
+
+	public void TeleOpTransmissionExchange() {
+		if (playStation.GetButtonHome() == true) {
+			Date now = new Date();
+			if (now.getTime() - LastHomePress.getTime() > timeBetweenPresses) {
+				ToggleTransmission();
+			}
+			LastHomePress = now;
+		}
+
 	}
 
 	// TODO EDIT RAISE CONDITIONS
@@ -163,46 +174,39 @@ public class DriveClass {
 	//
 	// }
 
-	public void VoltageDetector() {
-		SmartDashboard.putNumber("Left Front Drive", Map.LeftMotorFront.getBusVoltage());
-		SmartDashboard.putNumber("Left Back Drive", Map.LeftMotorBack.getBusVoltage());
-		SmartDashboard.putNumber("Right Front Drive", Map.RightMotorFront.getBusVoltage());
-		SmartDashboard.putNumber("Right Front Drive", Map.RightMotorBack.getBusVoltage());
-		SmartDashboard.putNumber("Climber", Map.ClimbMotor.getBusVoltage());
-
-	}
-
-	// TODO MAKE A CLASS FOR ALL OF THE TOGGLES
 	// public void ToggleBoxSpin() {
 	// if (BoxSpinMotorIsRunning == false) {
-	// Map.BoxSpinMotor.set(0.5);
-	// Map.BoxSpinVictor.set(0.5);
+	// Map.GrabberMotor.set(1);
 	// BoxSpinMotorIsRunning = true;
 	// } else if (BoxSpinMotorIsRunning == true) {
-	// Map.BoxSpinMotor.stopMotor();
-	// Map.BoxSpinVictor.stopMotor();
+	// Map.GrabberMotor.stopMotor();
 	// BoxSpinMotorIsRunning = false;
 	// }
 	// }
 
 	public void ToggleHolding() {
 		if (IsHoldingCube == false) {
-			Map.Grabber.set(Value.kForward);
+			Map.GrabberSolenoid.set(Value.kReverse);
 			IsHoldingCube = true;
 		} else if (IsHoldingCube == true) {
-			Map.Grabber.set(Value.kOff);
+			Map.GrabberSolenoid.set(Value.kForward);
 			IsHoldingCube = false;
 		}
 	}
 
 	public void ToggleTransmission() {
 		if (TransmissionIsToggled == false) {
-			Map.TransmissionExchange.set(Value.kForward);
+			Map.TransmisionExchangeSolenoid.set(Value.kReverse);
 			TransmissionIsToggled = true;
 		} else if (TransmissionIsToggled == true) {
-			Map.TransmissionExchange.set(Value.kOff);
+			Map.TransmisionExchangeSolenoid.set(Value.kForward);
 			TransmissionIsToggled = false;
 		}
 	}
+
+	// Im pretending to be typing important things right now
+	// WEW LAD THIS IS SPOOKY
+	// HAHAHAHAHAHA HElp im kinda SHOOK RN
+	// lmao this will still compile
 
 }

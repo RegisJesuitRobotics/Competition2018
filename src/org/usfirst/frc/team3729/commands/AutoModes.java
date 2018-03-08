@@ -3,16 +3,22 @@ package org.usfirst.frc.team3729.commands;
 import org.usfirst.frc.team3729.robot.FieldElementScoringSide;
 import org.usfirst.frc.team3729.robot.FieldStartingPosition;
 
+import edu.wpi.first.wpilibj.Timer;
+import subsystems.PortMap;
+
 public class AutoModes {
 	// AUTO MODES
 	AutoCalledMethods Auto;
+	PortMap Map;
 
 	public AutoModes() {
 		Auto = new AutoCalledMethods();
+		Map = PortMap.getInstance();
 	}
 
 	public void AutoGoOverLine() {
-		Auto.AutoGoForeward(0.8, 1);
+		Auto.AutoGoForeward(1, 6);
+		Auto.stopMotors();
 
 	}
 
@@ -26,7 +32,7 @@ public class AutoModes {
 			Auto.AutoStop(1);
 			Auto.AutoLifter();
 			Auto.AutoGoForeward(0.23, 1);
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("starbucks1");
 
 		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Right) {
@@ -38,7 +44,7 @@ public class AutoModes {
 			Auto.AutoStop(1);
 			Auto.AutoLifter();
 			Auto.AutoGoForeward(0.23, 1);
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("coffee");
 		} else if (StartingPosition == FieldStartingPosition.Left && SwitchSide == FieldElementScoringSide.Right) {
 			// START LEFT, ELEMENT RIGHT
@@ -49,7 +55,7 @@ public class AutoModes {
 			Auto.AutoStop(1);
 			Auto.AutoGoForeward(0.689, 2);
 			Auto.AutoLifter();
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("chipotle");
 
 		} else if (StartingPosition == FieldStartingPosition.Right && SwitchSide == FieldElementScoringSide.Left) {
@@ -65,7 +71,7 @@ public class AutoModes {
 			Auto.AutoGoForeward(0.57, 1);
 			Auto.AutoPointTurnLeft(0.38, 1);
 			Auto.AutoLifter();
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("chili's");
 		}
 	}
@@ -79,7 +85,7 @@ public class AutoModes {
 			Auto.AutoStop(2);
 			Auto.AutoLifter();
 			Auto.AutoGoForeward(0, 0);
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("Thiccer than a snicker");
 
 		} else if (StartingPosition == FieldStartingPosition.Right && ScaleSide == FieldElementScoringSide.Right) {
@@ -90,7 +96,7 @@ public class AutoModes {
 			Auto.AutoStop(2);
 			Auto.AutoLifter();
 			Auto.AutoGoForeward(0, 0);
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("Fetcher than a sketcher");
 			//
 		} else if (StartingPosition == FieldStartingPosition.Left && ScaleSide == FieldElementScoringSide.Right) {
@@ -109,7 +115,7 @@ public class AutoModes {
 			Auto.AutoStop(2);
 			Auto.AutoLifter();
 			Auto.AutoGoForeward(0, 0);
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("Gayer than a mayor");
 
 		} else if (StartingPosition == FieldStartingPosition.Right && ScaleSide == FieldElementScoringSide.Left) {
@@ -128,7 +134,7 @@ public class AutoModes {
 			Auto.AutoStop(2);
 			Auto.AutoLifter();
 			Auto.AutoGoForeward(0, 0);
-			Auto.AutoThrow();
+			// Auto.AutoThrow();
 			System.out.println("Finer than a Diner");
 
 		}

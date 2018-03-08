@@ -3,32 +3,41 @@ package subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
 
 public class PortMap {
-	public WPI_TalonSRX RightMotorFront, LeftMotorFront, LeftMotorBack, RightMotorBack, LifterMotor, ClimbMotor,
-			BoxSpinMotor;
+	private static PortMap map;
+
+	public WPI_TalonSRX RightDriveMotorFront, RightDriveMotorBack, LeftDriveMotorFront, LeftDriveMotorBack, LifterMotor,
+			ClimbMotor, GrabberMotor;
+	public DoubleSolenoid GrabberSolenoid, TransmisionExchangeSolenoid;
 	public PlayStationController playStation;
-	public DoubleSolenoid Grabber, TransmissionExchange;
-	public Victor BoxSpinVictor;
-	public AnalogInput Laser;
+	// public AnalogInput Laser;
+	public Compressor compressor;
 
-	public PortMap() {
+	private PortMap() {
 
-		LeftMotorFront = new WPI_TalonSRX(3);
-		RightMotorFront = new WPI_TalonSRX(2);
-		LeftMotorBack = new WPI_TalonSRX(1);
-		RightMotorBack = new WPI_TalonSRX(4);
-		LifterMotor = new WPI_TalonSRX(8);
-		ClimbMotor = new WPI_TalonSRX(7);
-		Grabber = new DoubleSolenoid(0, 0);
-		TransmissionExchange = new DoubleSolenoid(2, 3);
-		// BoxSpinMotor = new WPI_TalonSRX(15); // TODO
-		// BoxSpinVictor = new Victor(420); // TODO
-		// Laser = new AnalogInput(0);
-
+		LeftDriveMotorFront = new WPI_TalonSRX(4);
+		RightDriveMotorFront = new WPI_TalonSRX(3);
+		LeftDriveMotorBack = new WPI_TalonSRX(6);
+		RightDriveMotorBack = new WPI_TalonSRX(2);
+		LifterMotor = new WPI_TalonSRX(5);
+		ClimbMotor = new WPI_TalonSRX(1);
+		// GrabberMotor = new WPI_TalonSRX(5);
+		// compressor = new Compressor(0);
+		GrabberSolenoid = new DoubleSolenoid(0, 1);
+		TransmisionExchangeSolenoid = new DoubleSolenoid(2, 3);
 		// ENCODERS DIO
 		// VICTORS GO IN PWM
+	}
+
+	public static PortMap getInstance() {
+		if (map == null) {
+			map = new PortMap();
+		}
+
+		return map;
 	}
 }

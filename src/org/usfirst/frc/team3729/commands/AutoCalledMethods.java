@@ -9,55 +9,56 @@ public class AutoCalledMethods {
 
 	public AutoCalledMethods() {
 
-		Map = new PortMap();
+		Map = PortMap.getInstance();
 	}
 
 	// AUTO CODE BUILDING BLOCKS
+
 	public void AutoGoForeward(double speed, int time) {
 
-		Map.LeftMotorFront.set(-speed * DriveClass.SideCompensation);
-		Map.RightMotorFront.set(speed);
-		Map.LeftMotorBack.set(-speed * DriveClass.SideCompensation);
-		Map.RightMotorBack.set(speed);
+		Map.LeftDriveMotorFront.set(-speed * DriveClass.SideCompensation);
+		Map.RightDriveMotorFront.set(speed);
+		Map.LeftDriveMotorBack.set(-speed * DriveClass.SideCompensation);
+		Map.RightDriveMotorBack.set(speed);
 		Timer.delay(time);
 		stopMotors();
 	}
 
 	public void AutoGoRight(double speed, int time) {
-		Map.LeftMotorFront.set(-speed * 0.5 * DriveClass.SideCompensation);
-		Map.LeftMotorBack.set(-speed * 0.5 * DriveClass.SideCompensation);
-		Map.RightMotorFront.set(speed);
-		Map.RightMotorBack.set(speed);
+		Map.LeftDriveMotorFront.set(-speed * 0.5 * DriveClass.SideCompensation);
+		Map.RightDriveMotorFront.set(speed);
+		Map.LeftDriveMotorBack.set(-speed * DriveClass.SideCompensation);
+		Map.RightDriveMotorBack.set(speed);
 		Timer.delay(time);
 		stopMotors();
 	}
 
 	public void AutoGoLeft(double speed, int time) {
 
-		Map.LeftMotorFront.set(-speed * DriveClass.SideCompensation);
-		Map.LeftMotorBack.set(-speed * DriveClass.SideCompensation);
-		Map.RightMotorFront.set(speed * 0.5 * 0.8);
-		Map.RightMotorBack.set(speed * 0.5 * 0.8);
+		Map.LeftDriveMotorFront.set(-speed * 0.5 * DriveClass.SideCompensation);
+		Map.RightDriveMotorFront.set(speed);
+		Map.LeftDriveMotorBack.set(-speed * DriveClass.SideCompensation);
+		Map.RightDriveMotorBack.set(speed);
 		Timer.delay(time);
 		stopMotors();
 	}
 
 	public void AutoPointTurnRight(double speed, int time) {
 
-		Map.LeftMotorFront.set(-speed * DriveClass.SideCompensation);
-		Map.LeftMotorBack.set(-speed * DriveClass.SideCompensation);
-		Map.RightMotorFront.set(-speed);
-		Map.RightMotorBack.set(-speed);
+		Map.LeftDriveMotorFront.set(-speed * 0.5 * DriveClass.SideCompensation);
+		Map.RightDriveMotorFront.set(speed);
+		Map.LeftDriveMotorBack.set(-speed * DriveClass.SideCompensation);
+		Map.RightDriveMotorBack.set(speed);
 		Timer.delay(time);
 		stopMotors();
 	}
 
 	public void AutoPointTurnLeft(double speed, int time) {
 
-		Map.LeftMotorFront.set(speed * DriveClass.SideCompensation);
-		Map.LeftMotorBack.set(speed * DriveClass.SideCompensation);
-		Map.RightMotorFront.set(speed);
-		Map.RightMotorBack.set(speed);
+		Map.LeftDriveMotorFront.set(-speed * 0.5 * DriveClass.SideCompensation);
+		Map.RightDriveMotorFront.set(speed);
+		Map.LeftDriveMotorBack.set(-speed * DriveClass.SideCompensation);
+		Map.RightDriveMotorBack.set(speed);
 		Timer.delay(time);
 		stopMotors();
 	}
@@ -68,17 +69,17 @@ public class AutoCalledMethods {
 
 	}
 
-	public void AutoThrow() {
-		Map.Grabber.set(Value.kReverse);
-		Timer.delay(3);
-		Map.Grabber.set(Value.kOff);
-	}
+	// public void AutoThrow() {
+	// Map.Grabber.set(Value.kReverse);
+	// Timer.delay(3);
+	// Map.Grabber.set(Value.kOff);
+	// }
 
 	public void stopMotors() {
-		Map.LeftMotorFront.stopMotor();
-		Map.RightMotorFront.stopMotor();
-		Map.LeftMotorBack.stopMotor();
-		Map.RightMotorBack.stopMotor();
+		Map.LeftDriveMotorFront.stopMotor();
+		Map.RightDriveMotorFront.stopMotor();
+		Map.LeftDriveMotorBack.stopMotor();
+		Map.RightDriveMotorBack.stopMotor();
 	}
 
 	public void AutoLifter() {
